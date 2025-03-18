@@ -1,0 +1,35 @@
+.book-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+    justify-content: center;
+    
+  }
+  .book-list h4, .book-list p{
+    margin: 0;
+  }
+  
+  .book-card {
+    width: 150px;
+    border: 1px solid;
+    text-align: center;
+    box-shadow: 5px 5px;
+    
+  }
+  
+  .book-card img {
+    width: 150px;
+    height: 210px;
+    
+    
+  }
+  
+  button {
+    background-color: black;
+    color: white;
+    border: none;
+    padding: 5px;
+    cursor: pointer;
+    margin-bottom: 5px;
+  }
+  

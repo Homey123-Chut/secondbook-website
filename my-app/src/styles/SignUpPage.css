@@ -1,0 +1,87 @@
+/* SignUpPage.css */
+body {
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+  background: url('vintage-background.jpg') no-repeat center center fixed;
+  background-size: cover;
+}
+
+.signup-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  text-align: center;
+  color: #333;
+  padding: 30px;
+  border-radius: 10px;
+  max-width: 400px;
+  margin: auto;
+}
+
+h2 {
+  font-size: 2.5rem;
+  color: #2c3e50;
+  margin-bottom: 20px;
+}
+
+.signup-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 15px;
+  font-size: 1rem;
+  color:black;
+  border: none;
+  cursor: pointer;
+  margin: 10px 0;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.signup-btn img {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+}
+
+.signup-btn.google {
+  border: 1px solid;
+}
+
+.signup-btn.google:hover {
+  background-color: #c23321;
+}
+
+.signup-btn.facebook {
+  border: 1px solid;
+}
+
+.signup-btn.facebook:hover {
+  background-color: #365899;
+}
+
+.signup-btn.apple {
+  border: 1px solid;
+}
+
+.signup-btn.apple:hover {
+  background-color: #333;
+}
+
+.login-text {
+  margin-top: 20px;
+  font-size: 1rem;
+}
+
+.login-text a {
+  text-decoration: none;
+  color: #3498db;
+  font-weight: bold;
+}
+
+.login-text a:hover {
+  text-decoration: underline;
+}
