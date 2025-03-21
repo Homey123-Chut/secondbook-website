@@ -28,7 +28,7 @@ const SignUp = () => {
         <img 
           src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" 
           alt="Facebook Logo" 
-          className="logo-icon"
+          className="logo-icon-facebook"
         />
         Sign up with Facebook
       </button>
@@ -36,9 +36,9 @@ const SignUp = () => {
       {/* Apple Sign Up */}
       <button className="signup-btn apple" onClick={handleSignUp}>
         <img 
-          src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg" 
+          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQesa2rF2WhrA7Sl3iIoznL-gFpA0y0GB-tQ&s" 
           alt="Apple Logo" 
-          className="logo-icon"
+          className="logo-icon-apple"
         />
         Sign up with Apple
       </button>

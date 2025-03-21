@@ -9,14 +9,12 @@ function App() {
   return (
     <div>
       {/* Navigation Bar */}
-      <Nav />
+      <Nav /> 
 
       {/* Page Routes */}
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/signup" element={<SignUp />} />
-        
-        
       </Routes>
     </div>
   );

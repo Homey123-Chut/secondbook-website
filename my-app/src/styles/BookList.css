@@ -14,7 +14,11 @@
     border: 1px solid;
     text-align: center;
     box-shadow: 5px 5px;
-    
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease; 
+  }
+  .book-card:hover{
+    transform: scale(1.1);
   }
   
   .book-card img {
