@@ -9,6 +9,7 @@ import allthelight from "../assets/all the light we cannot see cover.jpg";
 import gameofthrone from "../assets/gameofthrone cover.jpg";
 import mastery from "../assets/mastery cover.jpg";
 import spiderman from "../assets/spiderman_orig.jpg";
+import harry from "../assets/harry.jpg";
 
 const books = [
   { id: 1, title: "Educated", price: "2$", image: educated, description: "A memoir by Tara Westover." },
@@ -19,6 +20,8 @@ const books = [
   { id: 6, title: "Game of Thrones", price: "2$", image: gameofthrone, description: "A fantasy epic by George R.R. Martin." },
   { id: 7, title: "Mastery", price: "2$", image: mastery, description: "A book on achieving mastery by Robert Greene." },
   { id: 8, title: "Spider-Man", price: "2$", image: spiderman, description: "A comic book about Spider-Man." },
+  { id: 9, title: "Meet 14-Year-Old Me", price: "2$", image: meet14, description: "A book about a 14-year-old." },
+  { id: 10, title: "Meet 14-Year-Old Me", price: "2$", image: harry, description: "A book about a 14-year-old." }
 ];
 
 const BookList = () => {

@@ -1,0 +1,87 @@
+.profile-container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
+
+.section-title {
+    text-align: center;
+    font-size: 1.5rem;
+    margin-top: 20px;
+}
+
+.profile-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    background: #d3d3d3;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.profile-image img {
+    width: 150px;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.quote {
+    font-size: 0.9rem;
+    font-style: italic;
+    text-align: center;
+    margin-top: 5px;
+}
+
+.profile-details {
+    flex: 1;
+    background: #f0f0f0;
+    padding: 15px;
+    border-radius: 10px;
+}
+
+.profile-details p {
+    font-size: 1rem;
+    margin: 5px 0;
+}
+
+.table-container {
+    background: #d3d3d3;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+}
+
+th {
+    font-weight: bold;
+}
+
+tbody tr {
+    border-top: 1px solid black;
+}
+
+.back-home {
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+    font-size: 1rem;
+    color: black;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.back-home:hover {
+    text-decoration: underline;
+}
