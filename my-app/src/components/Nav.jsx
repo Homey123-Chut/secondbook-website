@@ -33,6 +33,8 @@ const Nav = () => {
             <Link to="/genres/science-fiction">Science Fiction</Link>
             <Link to="/genres/history">History</Link>
             <Link to="/genres/fantasy">Fantasy</Link>
+          
+            
           </div>
         </div>
 

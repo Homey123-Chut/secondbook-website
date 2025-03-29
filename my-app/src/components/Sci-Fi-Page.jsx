@@ -1,6 +1,7 @@
 import React from "react";
 import BookList from "./BookList";
 import "../styles/SciFiPage.css";
+import BookSciFi from "./BookSciFi";
 
 const SciFiPage = () => {
   return (
@@ -12,8 +13,8 @@ const SciFiPage = () => {
       </div>
 
       <section className="book-section">
-        <h3>Best Sci-Fi Books</h3>
-        <BookList />
+        <h3>Best Science Fiction Books</h3>
+        <BookSciFi />
         <p className="see-more">see more</p>
       </section>
     </div>
