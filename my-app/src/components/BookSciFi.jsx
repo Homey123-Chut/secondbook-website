@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom"; // Import Link for navigation
 import "../styles/BookList.css";
 import dune from "../assets/federation.jpg";
@@ -41,7 +41,7 @@ import quantum from "../assets/quantum_ventures.jpg";
 import warfront from "../assets/warfront_clash.jpg";
 import nebulae from "../assets/nebulae_explorers.jpg";
 
-const sciFiBooks = [
+export const sciFiBooks = [
   { id: 1, title: "Dune", price: "11$", image: dune, description: "A science fiction novel by Frank Herbert." },
   { id: 2, title: "Neuromancer", price: "13$", image: heir, description: "A science fiction novel by William Gibson." },
   { id: 3, title: "Snow Crash", price: "15$", image: paul, description: "A science fiction novel by Neal Stephenson." },
@@ -85,6 +85,29 @@ const sciFiBooks = [
 ];
 
 const BookSciFi = () => {
+  const [cart, setCart] = useState([]);
+
+  useEffect(() => {
+    // Fetch cart from localStorage
+    const storedCart = JSON.parse(localStorage.getItem("cart")) || [];
+    setCart(storedCart);
+  }, []);
+
+  const handleAddToCart = (book) => {
+    if (!cart.some((b) => b.id === book.id)) {
+      const updatedCart = [...cart, book];
+      setCart(updatedCart);
+      localStorage.setItem("cart", JSON.stringify(updatedCart));
+      alert(`${book.title} has been added to your cart!`);
+    } else {
+      alert(`${book.title} is already in your cart.`);
+    }
+  };
+
+  const isBookInCart = (bookId) => {
+    return cart.some((b) => b.id === bookId);
+  };
+
   return (
     <div className="book-list">
       {sciFiBooks.map((book) => (
@@ -94,7 +117,12 @@ const BookSciFi = () => {
             <h4>{book.title}</h4>
             <p>{book.price}</p>
           </Link>
-          <button>Add to Cart</button>
+          <button
+            onClick={() => handleAddToCart(book)}
+            disabled={isBookInCart(book.id)}
+          >
+            {isBookInCart(book.id) ? "Already Added" : "Add to Cart"}
+          </button>
         </div>
       ))}
     </div>

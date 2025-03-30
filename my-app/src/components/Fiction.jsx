@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom"; // Import Link for navigation
 import "../styles/BookList.css";
 import Hunger from "../assets/The_Hunger_Games.jpg";
@@ -32,8 +32,8 @@ import Light from "../assets/Light.jpg";
 import Bell from "../assets/Bell.jpg";
 import Brothers from "../assets/Brothers.jpg";
 
-// Fiction books array remains unchanged
-const fictionBooks = [
+// Export the fictionBooks array
+export const fictionBooks = [
   { id: 1, title: "The Hunger Games", price: "19$", image: Hunger, description: "A Fiction novel by the American writer Suzanne Collins.." },
   { id: 2, title: "The Book Thief", price: "8$", image: Thief, description: "A historical fiction novel by the Australian author Markus Zusak." },
   { id: 3, title: "The Shining", price: "12$", image: Shining, description: "A horror novel by American author Stephen King." },
@@ -67,16 +67,44 @@ const fictionBooks = [
 ];
 
 const Fiction = () => {
+  const [cart, setCart] = useState([]);
+
+  useEffect(() => {
+    // Fetch cart from localStorage
+    const storedCart = JSON.parse(localStorage.getItem("cart")) || [];
+    setCart(storedCart);
+  }, []);
+
+  const handleAddToCart = (book) => {
+    if (!cart.some((b) => b.id === book.id)) {
+      const updatedCart = [...cart, book];
+      setCart(updatedCart);
+      localStorage.setItem("cart", JSON.stringify(updatedCart));
+      alert(`${book.title} has been added to your cart!`);
+    } else {
+      alert(`${book.title} is already in your cart.`);
+    }
+  };
+
+  const isBookInCart = (bookId) => {
+    return cart.some((b) => b.id === bookId);
+  };
+
   return (
     <div className="book-list">
       {fictionBooks.map((book) => (
         <div key={book.id} className="book-card">
-          <Link to={`/book/${book.id}`}>
+          <Link to={`/book/fiction/${book.id}`}>
             <img src={book.image} alt={book.title} />
             <h4>{book.title}</h4>
             <p>{book.price}</p>
           </Link>
-          <button>Add to Cart</button>
+          <button
+            onClick={() => handleAddToCart(book)}
+            disabled={isBookInCart(book.id)}
+          >
+            {isBookInCart(book.id) ? "Already Added" : "Add to Cart"}
+          </button>
         </div>
       ))}
     </div>

@@ -6,8 +6,8 @@
     padding: 20px;
   }
   
-  .sciFi-banner {
-    background: url("../assets/sci-fi book banner.webp") center/cover ;
+  .scifi-banner {
+    background: url("../assets/scifi-banner.webp") center/cover ;
     padding: 40px;
     text-align: center;
     font-size: 1.5rem;
@@ -18,7 +18,7 @@
     
     
   }
-  .banner h2{
+  .scifi-banner h2{
     color: white;
     text-shadow: 2px 2px 2px black;
     background-color: rgba(0, 0, 0, 0.5);

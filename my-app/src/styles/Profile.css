@@ -17,19 +17,21 @@
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    background: #d3d3d3;
+    background: white;
     padding: 20px;
     border-radius: 10px;
     margin-bottom: 20px;
     display: flex;
     gap: 20px;
+    box-shadow: 4px 4px;
+    border-radius: 0;
+    border: solid 1px;
 }
 
 .profile-image img {
     width: 100px;
     height: 100px;
     object-fit: cover;
-    border-radius: 50%;
 }
 
 .quote {
@@ -43,7 +45,8 @@
     flex: 1;
     background: #f0f0f0;
     padding: 15px;
-    border-radius: 10px;
+    border: 1px solid;
+
 }
 
 .profile-details p {
@@ -53,11 +56,14 @@
 }
 
 .table-container {
-    background: #d3d3d3;
+    background: white;
     padding: 15px;
-    border-radius: 10px;
     margin-bottom: 20px;
     overflow-x: auto;
+    border: solid 1px;
+    box-shadow: 3px 3px;
+
+
 }
 
 table {
@@ -69,11 +75,13 @@ th, td {
     padding: 10px;
     text-align: left;
     border-bottom: 1px solid #ddd;
+    
 }
 
 th {
     font-weight: bold;
-    background-color: #f4f4f4;
+    background-color: black;
+    color: white;
 }
 
 tbody tr {

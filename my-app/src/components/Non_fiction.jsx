@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom"; // Import Link for navigation
 import "../styles/BookList.css";
 import sapiens from "../assets/sapiens.jpg";
@@ -32,7 +32,7 @@ import principles from "../assets/principles.png";
 import psychology from "../assets/psychology.jpg";
 import intelligent from "../assets/intelligent.jpg";
 
-const Non_fictionBooks = [
+export const Non_fictionBooks = [
   { id: 1, title: "Sapiens", price: "$15", image: sapiens, description: "A brief history of humankind. (Author: Yuval Noah Harari)" },
   { id: 2, title: "Educated", price: "$18", image: educated, description: "A memoir of a woman who escapes her survivalist family. (Author: Tara Westover)" },
   { id: 3, title: "The Power of Habit", price: "$12", image: habit, description: "Explores the science of habit formation. (Author: Charles Duhigg)" },
@@ -65,18 +65,45 @@ const Non_fictionBooks = [
   { id: 30, title: "Rich Dad Poor Dad", price: "$15", image: intelligent, description: "Understanding financial intelligence. (Author: Robert Kiyosaki)" }
 ];
 
-
 const Non_fiction = () => {
+  const [cart, setCart] = useState([]);
+
+  useEffect(() => {
+    // Fetch cart from localStorage
+    const storedCart = JSON.parse(localStorage.getItem("cart")) || [];
+    setCart(storedCart);
+  }, []);
+
+  const handleAddToCart = (book) => {
+    if (!cart.some((b) => b.id === book.id)) {
+      const updatedCart = [...cart, book];
+      setCart(updatedCart);
+      localStorage.setItem("cart", JSON.stringify(updatedCart));
+      alert(`${book.title} has been added to your cart!`);
+    } else {
+      alert(`${book.title} is already in your cart.`);
+    }
+  };
+
+  const isBookInCart = (bookId) => {
+    return cart.some((b) => b.id === bookId);
+  };
+
   return (
     <div className="book-list">
       {Non_fictionBooks.map((book) => (
         <div key={book.id} className="book-card">
-          <Link to={`/book/${book.id}`}>
+          <Link to={`/book/non-fiction/${book.id}`}>
             <img src={book.image} alt={book.title} />
             <h4>{book.title}</h4>
             <p>{book.price}</p>
           </Link>
-          <button>Add to Cart</button>
+          <button
+            onClick={() => handleAddToCart(book)}
+            disabled={isBookInCart(book.id)}
+          >
+            {isBookInCart(book.id) ? "Already Added" : "Add to Cart"}
+          </button>
         </div>
       ))}
     </div>

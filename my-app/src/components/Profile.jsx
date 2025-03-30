@@ -47,7 +47,13 @@ const Profile = () => {
         </div>
       </div>
 
-      {/* Your Cart Section */}
+      {/* Quote Section */}
+      <div className="quote-section">
+        <p className="quote">
+          "A reader lives a thousand lives before he dies. The man who never reads lives only one." – George R.R. Martin
+        </p>
+      </div>
+
       <h2 className="section-title">Your Cart</h2>
       <div className="table-container">
         <table>
@@ -89,7 +95,6 @@ const Profile = () => {
         </table>
       </div>
 
-      {/* Books You Sell Section */}
       <h2 className="section-title">Books You Sell</h2>
       <div className="table-container">
         <table>

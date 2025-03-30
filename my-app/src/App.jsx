@@ -15,13 +15,14 @@ import FictionPage from "./components/FictionPage"; // Import Fiction Page
 import HistoryPage from "./components/HistoryPage"; // Import History Page
 import PaymentPage from "./components/PaymentPage"; // Import PaymentPage component
 import "./index.css"; // Import global CSS
+import SciFiPage from "./components/Sci-Fi-Page";
 
 function App() {
   return (
     
     
     <div>
-      <div>Hi</div>
+      
       {/* Navigation Bar */}
       <Nav />
 
@@ -30,7 +31,7 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/profile" element={<Profile />} />
-        <Route path="/genres/science-fiction" element={<BookSciFi />} /> {/* Use BookSciFi for Sci-Fi genre */}
+        <Route path="/genres/science-fiction" element={<SciFiPage />} /> {/* Use BookSciFi for Sci-Fi genre */}
         <Route path="/genres/fantasy" element={<FantasyPage />} />
         <Route path="/genres/non-fiction" element={<NonFictionPage />} />
         <Route path="/genres/fiction" element={<FictionPage />} />

@@ -20,10 +20,11 @@
   width: 300px;
   padding: 10px;
   font-size: 1rem;
-  border: 1px solid #ddd;
+  border: 1px solid black;
   outline: none;
   transition: box-shadow 0.3s ease;
-  border: 1px solid;
+  border-radius: 0;
+
 }
 
 .search-bar:focus {
@@ -33,7 +34,7 @@
 
 /* Search Button */
 .search-btn {
-  background-color: #007bff;
+  background-color: black;
   color: white;
   border: none;
   padding: 10px 20px;

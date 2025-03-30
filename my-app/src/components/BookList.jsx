@@ -11,17 +11,117 @@ import mastery from "../assets/mastery cover.jpg";
 import spiderman from "../assets/spiderman_orig.jpg";
 import harry from "../assets/harry.jpg";
 
-const books = [
-  { id: 1, title: "Educated", price: "2$", image: educated, description: "A memoir by Tara Westover." },
-  { id: 2, title: "Harry Potter", price: "2$", image: outsider, description: "A fantasy novel by J.K. Rowling." },
-  { id: 3, title: "The Book of Art", price: "2$", image: meet14, description: "A guide to art and creativity." },
-  { id: 4, title: "Don't Look Back", price: "2$", image: theboys, description: "A thrilling mystery novel." },
-  { id: 5, title: "All the Light We Cannot See", price: "2$", image: allthelight, description: "A historical fiction novel by Anthony Doerr." },
-  { id: 6, title: "Game of Thrones", price: "2$", image: gameofthrone, description: "A fantasy epic by George R.R. Martin." },
-  { id: 7, title: "Mastery", price: "2$", image: mastery, description: "A book on achieving mastery by Robert Greene." },
-  { id: 8, title: "Spider-Man", price: "2$", image: spiderman, description: "A comic book about Spider-Man." },
-  { id: 9, title: "Meet 14-Year-Old Me", price: "2$", image: meet14, description: "A book about a 14-year-old." },
-  { id: 10, title: "Meet 14-Year-Old Me", price: "2$", image: harry, description: "A book about a 14-year-old." }
+export const books = [
+  {
+    id: 1,
+    title: "Educated",
+    price: "2$",
+    image: educated,
+    description: "A memoir by Tara Westover.",
+    author: "Tara Westover",
+    seller: "John Doe",
+    telephone: "123-456-7890",
+    address: "123 Memoir St, New York, NY"
+  },
+  {
+    id: 2,
+    title: "Harry Potter",
+    price: "2$",
+    image: outsider,
+    description: "A fantasy novel by J.K. Rowling.",
+    author: "J.K. Rowling",
+    seller: "Jane Smith",
+    telephone: "987-654-3210",
+    address: "456 Fantasy Ln, London, UK"
+  },
+  {
+    id: 3,
+    title: "The Book of Art",
+    price: "2$",
+    image: meet14,
+    description: "A guide to art and creativity.",
+    author: "Robert Greene",
+    seller: "Art Books Co.",
+    telephone: "555-123-4567",
+    address: "789 Art Blvd, Paris, France"
+  },
+  {
+    id: 4,
+    title: "Don't Look Back",
+    price: "2$",
+    image: theboys,
+    description: "A thrilling mystery novel.",
+    author: "Lee Child",
+    seller: "Thriller Books Ltd.",
+    telephone: "444-987-6543",
+    address: "321 Mystery Rd, Los Angeles, CA"
+  },
+  {
+    id: 5,
+    title: "All the Light We Cannot See",
+    price: "2$",
+    image: allthelight,
+    description: "A historical fiction novel by Anthony Doerr.",
+    author: "Anthony Doerr",
+    seller: "Historical Reads",
+    telephone: "222-333-4444",
+    address: "555 History Blvd, Berlin, Germany"
+  },
+  {
+    id: 6,
+    title: "Game of Thrones",
+    price: "2$",
+    image: gameofthrone,
+    description: "A fantasy epic by George R.R. Martin.",
+    author: "George R.R. Martin",
+    seller: "Fantasy World",
+    telephone: "666-777-8888",
+    address: "101 Fantasy St, Dublin, Ireland"
+  },
+  {
+    id: 7,
+    title: "Mastery",
+    price: "2$",
+    image: mastery,
+    description: "A book on achieving mastery by Robert Greene.",
+    author: "Robert Greene",
+    seller: "Self-Help Books",
+    telephone: "999-888-7777",
+    address: "202 Mastery Blvd, San Francisco, CA"
+  },
+  {
+    id: 8,
+    title: "Spider-Man",
+    price: "2$",
+    image: spiderman,
+    description: "A comic book about Spider-Man.",
+    author: "Stan Lee",
+    seller: "Marvel Comics",
+    telephone: "333-444-5555",
+    address: "303 Comics Ln, New York, NY"
+  },
+  {
+    id: 9,
+    title: "Meet 14-Year-Old Me",
+    price: "2$",
+    image: meet14,
+    description: "A book about a 14-year-old.",
+    author: "Unknown",
+    seller: "Teen Reads",
+    telephone: "111-222-3333",
+    address: "404 Teen St, Chicago, IL"
+  },
+  {
+    id: 10,
+    title: "Meet 14-Year-Old Me",
+    price: "2$",
+    image: harry,
+    description: "A book about a 14-year-old.",
+    author: "Unknown",
+    seller: "Teen Reads",
+    telephone: "111-222-3333",
+    address: "404 Teen St, Chicago, IL"
+  }
 ];
 
 const BookList = () => {
@@ -45,7 +145,8 @@ const BookList = () => {
     <div className="book-list">
       {books.map((book) => (
         <div key={book.id} className="book-card">
-          <Link to={`/book/${book.id}`}>
+          {/* Add a default genre (e.g., "general") to the URL */}
+          <Link to={`/book/general/${book.id}`}>
             <img src={book.image} alt={book.title} />
             <h4>{book.title}</h4>
             <p>{book.price}</p>

@@ -10,9 +10,13 @@
   gap: 40px;
   justify-content: center;
 }
-
+.book-list a{
+  text-decoration: none;
+}
 .book-list h4, .book-list p {
   margin: 0;
+  color: black;
+  text-decoration: none;
 }
 
 .book-card {
@@ -47,7 +51,8 @@
 button {
   background-color: black;
   color: white;
-  border: none;
+  border-radius: 0;
+  
   padding: 5px;
   cursor: pointer;
   margin-bottom: 5px;

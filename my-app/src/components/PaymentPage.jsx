@@ -25,6 +25,10 @@ const PaymentPage = () => {
     navigate("/confirmation", { state: { book, address, paymentMethod } });
   };
 
+  if (!book) {
+    return <p>No book selected for payment!</p>; // Display a message if no book details are passed
+  }
+
   return (
     <div className="payment-page-container">
       <h2>Complete Your Purchase</h2>
