@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import BookList from "./BookList";
 import "../styles/HomePage.css";
+import BookRecentlyAdded from "./BookRecentlyAdded";
 
 const HomePage = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -42,7 +43,7 @@ const HomePage = () => {
 
       <section className="book-section">
         <h3>Recently added</h3>
-        <BookList />
+        <BookRecentlyAdded />
         <p className="see-more">see more</p>
       </section>
     </div>

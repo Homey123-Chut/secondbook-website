@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom"; // Import Link for navigation
 import "../styles/BookList.css";
 import educated from "../assets/educated-cover.jpg";
@@ -25,6 +25,22 @@ const books = [
 ];
 
 const BookList = () => {
+  const [cart, setCart] = useState([]);
+
+  // Load cart from localStorage on component mount
+  useEffect(() => {
+    const storedCart = JSON.parse(localStorage.getItem("cart")) || [];
+    setCart(storedCart);
+  }, []);
+
+  const handleAddToCart = (book) => {
+    if (!cart.some((item) => item.id === book.id)) {
+      const updatedCart = [...cart, book];
+      setCart(updatedCart);
+      localStorage.setItem("cart", JSON.stringify(updatedCart));
+    }
+  };
+
   return (
     <div className="book-list">
       {books.map((book) => (
@@ -34,7 +50,12 @@ const BookList = () => {
             <h4>{book.title}</h4>
             <p>{book.price}</p>
           </Link>
-          <button>Add to Cart</button>
+          <button
+            onClick={() => handleAddToCart(book)}
+            disabled={cart.some((item) => item.id === book.id)}
+          >
+            {cart.some((item) => item.id === book.id) ? "Already Added" : "Add to Cart"}
+          </button>
         </div>
       ))}
     </div>

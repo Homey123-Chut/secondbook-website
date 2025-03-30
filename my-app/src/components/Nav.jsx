@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "../styles/Nav.css";
 
 const Nav = () => {
   const [isSignedIn, setIsSignedIn] = useState(false);
   const [profilePicture, setProfilePicture] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const userProfile = JSON.parse(localStorage.getItem("userProfile"));
@@ -13,6 +14,13 @@ const Nav = () => {
       setProfilePicture(userProfile.profilePicture); // Load profile picture
     }
   }, []);
+
+  const handleLogout = () => {
+    // Clear user data from localStorage
+    localStorage.removeItem("userProfile");
+    setIsSignedIn(false);
+    navigate("/"); // Redirect to home page
+  };
 
   return (
     <nav className="navbar">
@@ -33,8 +41,6 @@ const Nav = () => {
             <Link to="/genres/science-fiction">Science Fiction</Link>
             <Link to="/genres/history">History</Link>
             <Link to="/genres/fantasy">Fantasy</Link>
-          
-            
           </div>
         </div>
 
@@ -45,18 +51,18 @@ const Nav = () => {
 
         {isSignedIn ? (
           <div className="profile-menu">
-            <Link to="/profile" className="profile-link">
+            <div className="profile-link">
               <img
                 src={profilePicture || "https://via.placeholder.com/40"}
                 alt="Profile"
                 className="profile-pic"
               />
-            </Link>
-            <div className="dropdown">
-              <Link to="/profile">Profile</Link>
-              <Link to="/" onClick={() => setIsSignedIn(false)}>
-                Logout
-              </Link>
+              <div className="dropdown">
+                <Link to="/profile">Profile</Link>
+                <button onClick={handleLogout} className="logout-btn">
+                  Logout
+                </button>
+              </div>
             </div>
           </div>
         ) : (

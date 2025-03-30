@@ -12,18 +12,18 @@
 
 .book-detail-container {
     display: flex;
-    align-items: flex-start;
     gap: 20px;
+    align-items: flex-start;
     background: #d3d3d3;
-    padding: 15px;
+    padding: 10px;
     border-radius: 10px;
 }
 
 .book-detail img {
-    width: 200px;
+    max-width: 200px;
     height: 300px;
     object-fit: cover;
-    border-radius: 5px;
+    border-radius: 10px;
 }
 
 .book-info {
@@ -31,7 +31,8 @@
 }
 
 .book-info h2 {
-    font-size: 1.8rem;
+    font-size: 24px;
+    color: #333;
     margin-bottom: 10px;
 }
 
@@ -49,18 +50,19 @@
 
 .buy-btn {
     display: inline-block;
-    background: black;
+    background-color: #007bff;
     color: white;
     padding: 10px 20px;
     text-align: center;
     border: none;
+    border-radius: 5px;
     cursor: pointer;
     font-size: 1rem;
     margin-top: 10px;
 }
 
 .buy-btn:hover {
-    background: #444;
+    background-color: #0056b3;
 }
 
 .book-extra {
@@ -84,4 +86,9 @@
 .seller-info {
     font-size: 1rem;
     font-weight: bold;
+}
+
+/* BookList.css */
+.book-list-container {
+  padding: 20px;
 }

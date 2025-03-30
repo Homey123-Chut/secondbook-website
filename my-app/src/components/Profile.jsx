@@ -1,24 +1,49 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "../styles/Profile.css";
-import profileImage from "../assets/joe.jpg"; // Update with correct image path
-import { Link } from "react-router-dom";
 
 const Profile = () => {
+  const [userInfo, setUserInfo] = useState({});
+  const [cart, setCart] = useState([]);
+  const [booksYouSell, setBooksYouSell] = useState([]);
+
+  useEffect(() => {
+    const storedUserInfo = JSON.parse(localStorage.getItem("userProfile")) || {};
+    const storedCart = JSON.parse(localStorage.getItem("cart")) || [];
+    const storedBooksYouSell = JSON.parse(localStorage.getItem("booksYouSell")) || [];
+    setUserInfo(storedUserInfo);
+    setCart(storedCart);
+    setBooksYouSell(storedBooksYouSell);
+  }, []);
+
+  const handleRemoveFromCart = (id) => {
+    const updatedCart = cart.filter((item) => item.id !== id);
+    setCart(updatedCart);
+    localStorage.setItem("cart", JSON.stringify(updatedCart));
+  };
+
+  const handleRemoveFromBooksYouSell = (id) => {
+    const updatedBooks = booksYouSell.filter((book) => book.id !== id);
+    setBooksYouSell(updatedBooks);
+    localStorage.setItem("booksYouSell", JSON.stringify(updatedBooks));
+  };
+
   return (
     <div className="profile-container">
-      {/* Profile Section */}
       <h2 className="section-title">Profile</h2>
       <div className="profile-info">
         <div className="profile-image">
-          <img src={profileImage} alt="Profile" />
-          <p className="quote">"you're just somebody I used to know"</p>
+          <img
+            src={userInfo.profilePicture || "https://via.placeholder.com/150"}
+            alt="Profile"
+          />
         </div>
         <div className="profile-details">
-          <p><strong>Name:</strong> Lon Mengheng</p>
-          <p><strong>Date of Birth:</strong> 01.Feb.2004</p>
-          <p><strong>Address:</strong> Kompang Cham</p>
-          <p><strong>Favorite Book Genre:</strong> Thriller</p>
-          <p><strong>Favorite Book:</strong> Dune</p>
+          <p><strong>Name:</strong> {userInfo.name || "N/A"}</p>
+          <p><strong>Email:</strong> {userInfo.email || "N/A"}</p>
+          <p><strong>Date of Birth:</strong> {userInfo.dateOfBirth || "N/A"}</p>
+          <p><strong>Address:</strong> {userInfo.address || "N/A"}</p>
+          <p><strong>Favorite Book Genre:</strong> {userInfo.favoriteGenre || "N/A"}</p>
+          <p><strong>Favorite Book:</strong> {userInfo.favoriteBook || "N/A"}</p>
         </div>
       </div>
 
@@ -29,42 +54,77 @@ const Profile = () => {
           <thead>
             <tr>
               <th>Book Title</th>
-              <th>Date</th>
-              <th>Quantity</th>
-              <th>Cost</th>
+              <th>Author</th>
+              <th>Genre</th>
+              <th>Description</th>
+              <th>Price</th>
+              <th>Action</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>Educated</td>
-              <td>10-01-25</td>
-              <td>1</td>
-              <td>2$</td>
-            </tr>
+            {cart.length > 0 ? (
+              cart.map((book) => (
+                <tr key={book.id}>
+                  <td>{book.title}</td>
+                  <td>{book.author || "N/A"}</td>
+                  <td>{book.genre || "N/A"}</td>
+                  <td>{book.description || "N/A"}</td>
+                  <td>{book.price}</td>
+                  <td>
+                    <button
+                      className="remove-btn"
+                      onClick={() => handleRemoveFromCart(book.id)}
+                    >
+                      Remove
+                    </button>
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan="6">Your cart is empty.</td>
+              </tr>
+            )}
           </tbody>
         </table>
       </div>
 
       {/* Books You Sell Section */}
-      <h2 className="section-title">Book You Sell</h2>
+      <h2 className="section-title">Books You Sell</h2>
       <div className="table-container">
         <table>
           <thead>
             <tr>
-              <th>Book Title</th>
-              <th>Date</th>
-              <th>Quantity</th>
-              <th>Cost</th>
+              <th>Title</th>
+              <th>Genre</th>
+              <th>Price</th>
+              <th>Phone</th>
+              <th>Description</th>
+              <th>Action</th>
             </tr>
           </thead>
           <tbody>
-            {/* Add dynamic data here if needed */}
+            {booksYouSell.length > 0 ? (
+              booksYouSell.map((book) => (
+                <tr key={book.id}>
+                  <td>{book.bookTitle}</td>
+                  <td>{book.genre}</td>
+                  <td>{book.price}</td>
+                  <td>{book.phone}</td>
+                  <td>{book.description}</td>
+                  <td>
+                    <button onClick={() => handleRemoveFromBooksYouSell(book.id)}>Remove</button>
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan="6">No books added yet.</td>
+              </tr>
+            )}
           </tbody>
         </table>
       </div>
-
-      {/* Link back to Home */}
-      <Link to="/" className="back-home">Go Back</Link>
     </div>
   );
 };

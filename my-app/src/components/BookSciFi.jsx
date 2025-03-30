@@ -89,7 +89,7 @@ const BookSciFi = () => {
     <div className="book-list">
       {sciFiBooks.map((book) => (
         <div key={book.id} className="book-card">
-          <Link to={`/book/${book.id}`}>
+          <Link to={`/book/science-fiction/${book.id}`}>
             <img src={book.image} alt={book.title} />
             <h4>{book.title}</h4>
             <p>{book.price}</p>
