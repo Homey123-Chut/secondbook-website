@@ -4,13 +4,12 @@
 1. [Project Overview](#project-overview)  
 2. [Tech Stack](#tech-stack)  
 3. [Installation Guide](#installation-guide)  
-4. [Project Structure](#project-structure)  
-5. [Features](#features)  
-6. [Routing & Navigation](#routing--navigation)  
-7. [Components](#components)  
-8. [How to Contribute](#how-to-contribute)  
-9. [Future Enhancements](#future-enhancements)  
-10. [License](#license)  
+4. [Features](#features)  
+5. [Routing & Navigation](#routing--navigation)  
+6. [Components](#components)  
+7. [How to Contribute](#how-to-contribute)  
+8. [Future Enhancements](#future-enhancements)  
+9. [License](#license)  
 
 ---
 
@@ -47,34 +46,6 @@ npm start
 or  
 yarn start
 🔹 Open http://localhost:3000/ in your browser.
-
----
-
-## 4. Project Structure  
-Secondhand-Website-Project/
-│── src/
-│   ├── assets/               # Images & Icons
-│   ├── components/           # Reusable Components
-│   │   ├── BookList.jsx
-│   │   ├── BookDetail.jsx
-│   │   ├── Nav.jsx
-│   │   ├── Footer.jsx
-│   │   ├── SignUp.jsx
-│   │   ├── Profile.jsx
-│   ├── styles/               # CSS Styles
-│   │   ├── Nav.css
-│   │   ├── BookList.css
-│   │   ├── BookDetail.css
-│   │   ├── Profile.css
-│   ├── pages/                # Page Components
-│   │   ├── HomePage.jsx
-│   │   ├── ProfilePage.jsx
-│   │   ├── SignUpPage.jsx
-│   ├── App.jsx               # Main Component
-│   ├── index.js              # React Entry File
-│── public/                    # Static Files
-│── package.json               # Dependencies
-│── README.md                  # Documentation
 
 ---
 
