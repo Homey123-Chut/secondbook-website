@@ -34,11 +34,6 @@ const SellNow = () => {
       ...formData,
     };
 
-    // Add the book to "Books You Sell" in Profile
-    const booksYouSell = JSON.parse(localStorage.getItem("booksYouSell")) || [];
-    booksYouSell.push(newBook);
-    localStorage.setItem("booksYouSell", JSON.stringify(booksYouSell));
-
     // Add the book to "Recently Added Books"
     const recentlyAddedBooks = JSON.parse(localStorage.getItem("recentlyAddedBooks")) || [];
     recentlyAddedBooks.push(newBook);
@@ -56,20 +51,6 @@ const SellNow = () => {
       bookImage: "",
       sellerName: "",
     });
-  };
-
-  const handleRemoveBook = (bookId) => {
-    // Remove the book from "Books You Sell"
-    const booksYouSell = JSON.parse(localStorage.getItem("booksYouSell")) || [];
-    const updatedBooksYouSell = booksYouSell.filter((book) => book.id !== bookId);
-    localStorage.setItem("booksYouSell", JSON.stringify(updatedBooksYouSell));
-
-    // Remove the book from "Recently Added Books"
-    const recentlyAddedBooks = JSON.parse(localStorage.getItem("recentlyAddedBooks")) || [];
-    const updatedRecentlyAddedBooks = recentlyAddedBooks.filter((book) => book.id !== bookId);
-    localStorage.setItem("recentlyAddedBooks", JSON.stringify(updatedRecentlyAddedBooks));
-
-    alert("Book removed successfully!");
   };
 
   return (
@@ -151,17 +132,6 @@ const SellNow = () => {
         )}
         <button type="submit">Submit</button>
       </form>
-
-      {/* Example of how to display and remove books */}
-      <div className="books-you-sell">
-        <h3>Your Books</h3>
-        {JSON.parse(localStorage.getItem("booksYouSell"))?.map((book) => (
-          <div key={book.id} className="book-item">
-            <p>{book.bookTitle}</p>
-            <button onClick={() => handleRemoveBook(book.id)}>Remove</button>
-          </div>
-        ))}
-      </div>
     </div>
   );
 };
