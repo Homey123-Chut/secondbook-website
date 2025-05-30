@@ -1,84 +1,248 @@
-*{
-  font-family: sans-serif;
-}
-.homepage {
-  text-align: center;
-  padding: 20px;
+* {
+  font-family: "Montserrat", "Segoe UI", Arial, sans-serif;
+  box-sizing: border-box;
 }
 
-/* Search Bar Container */
+.homepage {
+  min-height: 100vh;
+  background: #fff;
+  padding: 0;
+  margin: 0;
+}
+
+.animated-header {
+  background: transparent;
+  padding: 60px 0 24px 0;
+  text-align: center;
+  border-radius: 0;
+  box-shadow: none;
+  margin-bottom: 0;
+}
+
+.animated-header h1 {
+  font-size: 3rem;
+  color: #171a20;
+  margin: 0;
+  letter-spacing: 2px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.highlight {
+  color: #171a20;
+  font-weight: 700;
+}
+
+.subtitle {
+  font-size: 1.25rem;
+  color: #393c41;
+  margin-top: 18px;
+  margin-bottom: 0;
+  font-weight: 400;
+}
+
+.highlight2 {
+  color: #171a20;
+  font-weight: 600;
+}
+
 .search-bar-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 20px 0;
-  gap: 10px;
+  margin: 36px 0 24px 0;
+  gap: 0;
+  animation: fadeIn 1s;
 }
 
-/* Search Bar Input */
 .search-bar {
-  width: 300px;
-  padding: 10px;
-  font-size: 1rem;
-  border: 1px solid black;
-  outline: none;
-  transition: box-shadow 0.3s ease;
+  width: 340px;
+  padding: 14px 18px;
+  font-size: 1.1rem;
+  border: 1px solid #dadada;
   border-radius: 0;
-
+  outline: none;
+  background: #f7f7f7;
+  color: #171a20;
+  transition: border 0.2s, box-shadow 0.2s;
+  box-shadow: none;
+  border-right: none;
+  border-radius: 24px 0 0 24px;
 }
 
 .search-bar:focus {
-  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
-  border-color: #007bff;
+  border-color: #171a20;
+  background: #fff;
 }
 
-/* Search Button */
 .search-btn {
-  background-color: black;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  font-size: 1rem;
+  background: #171a20;
+  color: #fff;
+  border: 1px solid #171a20;
+  border-radius: 0 24px 24px 0;
+  padding: 14px 32px;
+  font-size: 1.1rem;
+  font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.3s ease;
-  border: solid 1px;
+  transition: background 0.2s, color 0.2s, border 0.2s;
+  box-shadow: none;
+  letter-spacing: 0.05em;
 }
 
 .search-btn:hover {
-  background-color: #0056b3;
+  background: #393c41;
+  border-color: #393c41;
 }
 
 .banner {
-  background: url("../assets/book-banner.webp") center/cover ;
-  padding: 40px;
-  text-align: center;
-  font-size: 1.5rem;
-  font-weight: bold;
-  box-shadow: 1px 1px 5px;
+  margin: 36px auto 24px auto;
+  max-width: 700px;
+  background: #fafbfc;
+  color: #171a20;
+  border-radius: 12px;
+  padding: 32px 24px;
+  box-shadow: 0 2px 16px #00000008;
+  animation: fadeIn 1.2s;
+  border: 1px solid #ededed;
 }
 
-.banner h2{
-  color: white;
-  text-shadow: 2px 2px 2px black;
-  background-color: rgba(0, 0, 0, 0.5);
+.banner h2 {
+  font-size: 1.25rem;
+  margin: 0;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+}
+
+.highlight3 {
+  color: #171a20;
+  font-weight: 600;
+  background: #eaeaea;
+  padding: 2px 6px;
+  border-radius: 6px;
 }
 
 .book-section {
-  margin-top: 20px;
+  margin: 48px auto 0 auto;
+  max-width: 1100px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 12px #00000008;
+  padding: 36px 24px 24px 24px;
+  animation: slideUp 1s;
+  border: 1px solid #ededed;
 }
 
-h3 {
+.section-title {
   font-size: 1.5rem;
-  margin-bottom: 10px;
+  margin-bottom: 24px;
+  color: #171a20;
+  font-weight: 700;
+  letter-spacing: 0.08em;
   text-align: center;
-  margin: 20px;
-  border: 1px solid;
-  box-shadow: 3px 3px ;
-  padding: 5px;
+  text-transform: uppercase;
 }
 
 .see-more {
   text-align: center;
-  color: #777;
+  color: #171a20;
   cursor: pointer;
+  font-weight: 600;
+  margin-top: 18px;
+  font-size: 1.05rem;
+  transition: color 0.2s;
+  letter-spacing: 0.05em;
+}
+
+.see-more:hover {
+  color: #393c41;
+  text-decoration: underline;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(60px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  animation: fadeIn 1.2s;
+}
+
+.slide-up {
+  animation: slideUp 1s;
+}
+
+@media (max-width: 900px) {
+  .book-section {
+    padding: 14px 5px 8px 5px;
+  }
+  .banner {
+    padding: 14px 8px;
+  }
+  .animated-header h1 {
+    font-size: 2rem;
+  }
+  .search-bar {
+    width: 70vw;
+  }
+}
+
+@media (max-width: 600px) {
+  .homepage {
+    padding: 0;
+  }
+  .animated-header {
+    padding: 36px 0 16px 0;
+  }
+  .animated-header h1 {
+    font-size: 1.2rem;
+  }
+  .subtitle {
+    font-size: 1rem;
+  }
+  .search-bar-container {
+    flex-direction: column;
+    gap: 10px;
+    padding: 12px 0;
+  }
+  .search-bar {
+    width: 90vw;
+    min-width: 0;
+    font-size: 1rem;
+    border-radius: 18px 18px 0 0;
+    border-right: 1px solid #dadada;
+  }
+  .search-btn {
+    width: 100%;
+    border-radius: 0 0 18px 18px;
+    padding: 12px 0;
+    font-size: 1rem;
+  }
+  .banner {
+    padding: 10px 4px;
+    font-size: 1rem;
+  }
+  .section-title {
+    font-size: 1rem;
+  }
+  .book-section {
+    padding: 8px 2px 6px 2px;
+  }
 }

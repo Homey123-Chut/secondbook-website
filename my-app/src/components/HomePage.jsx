@@ -8,11 +8,21 @@ const HomePage = () => {
 
   const handleSearch = (e) => {
     setSearchTerm(e.target.value);
-    console.log("Search Term:", e.target.value); // You can replace this with actual search logic
   };
 
   return (
     <div className="homepage">
+      {/* Animated Gradient Header */}
+      <header className="animated-header">
+        <h1>
+          <span className="highlight">Second Book</span>
+        </h1>
+        <p className="subtitle">
+          Find your next <span className="highlight2">favorite book</span> or
+          share one you've already read!
+        </p>
+      </header>
+
       {/* Search Bar */}
       <div className="search-bar-container">
         <input
@@ -25,26 +35,30 @@ const HomePage = () => {
         <button className="search-btn">Search</button>
       </div>
 
-      {/* Other Homepage Content */}
-      <h1>Welcome to Second Book</h1>
-      <p>Find your next favorite book or share one you've already read!</p>
-
-      <div className="banner">
+      {/* Banner with Fade-in Animation */}
+      <div className="banner fade-in">
         <h2>
-          “Second-hand books are not just stories—they are memories passed from one soul to another.”
+          “Second-hand books are not just stories—they are{" "}
+          <span className="highlight3">memories</span> passed from one soul to
+          another.”
         </h2>
       </div>
 
-      <section className="book-section">
-        <h3>Best Picks</h3>
+      {/* Best Picks Section */}
+      <section className="book-section slide-up">
+        <h3 className="section-title">🌟 Best Picks</h3>
         <BookList />
-        <p className="see-more">see more</p>
+        <p className="see-more pulse">see more</p>
       </section>
 
-      <section className="book-section">
-        <h3>Recently added</h3>
+      {/* Recently Added Section */}
+      <section
+        className="book-section slide-up"
+        style={{ animationDelay: "0.2s" }}
+      >
+        <h3 className="section-title">🆕 Recently Added</h3>
         <BookRecentlyAdded />
-        <p className="see-more">see more</p>
+        <p className="see-more pulse">see more</p>
       </section>
     </div>
   );
