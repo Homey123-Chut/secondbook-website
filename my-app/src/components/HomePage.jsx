@@ -12,36 +12,32 @@ const HomePage = () => {
 
   return (
     <div className="homepage">
-      {/* Animated Gradient Header */}
-      <header className="animated-header">
-        <h1>
-          <span className="highlight">Second Book</span>
-        </h1>
-        <p className="subtitle">
-          Find your next <span className="highlight2">favorite book</span> or
-          share one you've already read!
-        </p>
-      </header>
-
-      {/* Search Bar */}
-      <div className="search-bar-container">
-        <input
-          type="text"
-          placeholder="Search for books..."
-          value={searchTerm}
-          onChange={handleSearch}
-          className="search-bar"
-        />
-        <button className="search-btn">Search</button>
-      </div>
-
-      {/* Banner with Fade-in Animation */}
-      <div className="banner fade-in">
-        <h2>
-          “Second-hand books are not just stories—they are{" "}
-          <span className="highlight3">memories</span> passed from one soul to
-          another.”
-        </h2>
+      {/* Header + Search Bar with image on left */}
+      <div className="header-bg-flex">
+        <div className="header-image-side">
+          <img src= "https://www.biblionepal.com/cdn/shop/files/1683364671.png?v=1683365112&width=1946" alt="Header Visual" className="header-img" />
+        </div>
+        <div className="header-content-side">
+          <header className="animated-header">
+            <h1>
+              <span className="highlight">Second Book</span>
+            </h1>
+            <p className="subtitle">
+              Find your next <span className="highlight2">favorite book</span> or
+              share one you've already read!
+            </p>
+          </header>
+          <div className="search-bar-container">
+            <input
+              type="text"
+              placeholder="Search for books..."
+              value={searchTerm}
+              onChange={handleSearch}
+              className="search-bar"
+            />
+            <button className="search-btn">Search</button>
+          </div>
+        </div>
       </div>
 
       {/* Best Picks Section */}

@@ -8,6 +8,8 @@
   background: #fff;
   padding: 0;
   margin: 0;
+  background-color: #ffffff;
+background-image: url("https://www.transparenttextures.com/patterns/lined-paper-2.png");
 }
 
 .animated-header {
@@ -17,10 +19,11 @@
   border-radius: 0;
   box-shadow: none;
   margin-bottom: 0;
+  
 }
 
 .animated-header h1 {
-  font-size: 3rem;
+  font-size: 1.7rem;
   color: #171a20;
   margin: 0;
   letter-spacing: 2px;
@@ -35,9 +38,9 @@
 }
 
 .subtitle {
-  font-size: 1.25rem;
+  font-size: 1rem;
   color: #393c41;
-  margin-top: 18px;
+  margin-top: 12px;
   margin-bottom: 0;
   font-weight: 400;
 }
@@ -57,9 +60,9 @@
 }
 
 .search-bar {
-  width: 340px;
-  padding: 14px 18px;
-  font-size: 1.1rem;
+  width: 200px;
+  padding: 8px 12px;
+  font-size: 0.95rem;
   border: 1px solid #dadada;
   border-radius: 0;
   outline: none;
@@ -81,8 +84,8 @@
   color: #fff;
   border: 1px solid #171a20;
   border-radius: 0 24px 24px 0;
-  padding: 14px 32px;
-  font-size: 1.1rem;
+  padding: 8px 18px;
+  font-size: 0.95rem;
   font-weight: 600;
   cursor: pointer;
   transition: background 0.2s, color 0.2s, border 0.2s;
@@ -159,6 +162,48 @@
   text-decoration: underline;
 }
 
+.header-bg {
+  background-image:url("");
+  background-size: cover;
+  background-position: center;
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+
+.header-bg-flex {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+background-color: #ffffff;
+background-image: url("https://www.transparenttextures.com/patterns/lined-paper-2.png");
+  padding: 40px 0;
+  gap: 40px;
+}
+
+.header-image-side {
+  flex: 0 0 440px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  height: 360px;
+}
+
+.header-img {
+  width: 100%;
+  max-width: 440px;
+  height: 340px;
+  object-fit: cover;
+  
+}
+
+.header-content-side {
+  flex: 1 1 0;
+  min-width: 220px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -201,6 +246,21 @@
   }
   .search-bar {
     width: 70vw;
+  }
+  .header-bg-flex {
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px 0;
+  }
+  .header-image-side {
+    height: 220px;
+  }
+  .header-img {
+    max-width: 220px;
+    height: 180px;
+  }
+  .header-content-side {
+    min-width: 0;
   }
 }
 

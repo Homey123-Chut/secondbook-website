@@ -1,6 +1,6 @@
 .footer {
-  background: #fff;
-  color: #171a20;
+  background-color: #fff;
+background-image: url("https://www.transparenttextures.com/patterns/lined-paper-2.png");
   padding: 36px 20px 24px 20px;
   text-align: left;
   border-top: 1px solid #ededed;
@@ -26,13 +26,13 @@
   margin-bottom: 12px;
   font-weight: 700;
   letter-spacing: 0.05em;
-  color: #171a20;
+  color: black;
   text-transform: uppercase;
 }
 
 .footer-section p,
 .footer-section a {
-  color: #393c41;
+  color: black;
   text-decoration: none;
   display: block;
   margin: 6px 0;
