@@ -26,7 +26,7 @@ const Nav = () => {
   return (
     <nav className="navbar animated-navbar">
       <Link to="/" className="logo">
-        <span>SECOND</span>
+        <span>PSA</span>
         <span className="logo-bold">BOOK</span>
       </Link>
       <div className="nav-links">

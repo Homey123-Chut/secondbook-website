@@ -20,9 +20,11 @@
 
 .book-card {
   width: 150px;
-  border: 1px solid #ccc;
+  border-radius: 10px;
+  border: none;
   text-align: center;
-  box-shadow: 5px 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.2);
+  background-color: white;
   cursor: pointer;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
@@ -35,7 +37,7 @@
 .book-card img {
   width: 150px;
   height: 210px;
-  border-radius: 0; /* Same as BookList styles */
+  border-radius: 10px 10px 0 0; /* Same as BookList styles */
 }
 
 .book-card h3 {
