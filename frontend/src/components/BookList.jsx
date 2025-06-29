@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom"; // Import Link for navigation
 import "../styles/BookList.css";
-import educated from "../assets/educated-cover.jpg";
 import outsider from "../assets/outsider cover.jpg";
 import meet14 from "../assets/meet14year cover.jpg";
 import theboys from "../assets/theboys cover.jpg";
@@ -16,7 +15,12 @@ export const books = [
     id: 1,
     title: "Educated",
     price: "2$",
-    image: educated,
+    image: [
+      "https://i.ebayimg.com/00/s/MTYwMFgxMjAw/z/JAwAAOSwAK1hb6PV/$_57.JPG?set_id=8800005007",
+      "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1646950434i/60588268.jpg",
+      "https://blog.elfdubai.org/ELF_Blog_Educated_Tara_Westover_Review.jpg"
+
+    ],
     description: "A memoir by Tara Westover.",
     author: "Tara Westover",
     seller: "John Doe",

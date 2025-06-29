@@ -123,3 +123,123 @@
 .book-list-container {
   padding: 20px;
 }
+
+.book-detail-flex {
+  display: flex;
+  gap: 32px;
+  align-items: flex-start;
+  margin-bottom: 24px;
+}
+.book-carousel {
+  position: relative;
+  width: 260px;
+  height: 340px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.book-image {
+  width: 220px;
+  height: 320px;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px #0002;
+  margin: 0 24px;
+}
+.carousel-arrow {
+  background: #222;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  font-size: 1.5rem;
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  opacity: 0.8;
+  transition: background 0.2s;
+}
+.left-arrow {
+  left: 0;
+}
+.right-arrow {
+  right: 0;
+}
+.carousel-arrow:hover {
+  background: #444;
+}
+.book-info {
+  flex: 1;
+  min-width: 220px;
+}
+.book-title {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+.book-author, .book-genre, .book-price {
+  font-size: 1.1rem;
+  margin-bottom: 6px;
+}
+.book-extra-container {
+  display: flex;
+  gap: 32px;
+  margin-bottom: 18px;
+}
+.book-extra {
+  min-width: 220px;
+}
+.seller-link {
+  color: #007bff;
+  cursor: pointer;
+  text-decoration: underline;
+}
+.seller-link:hover {
+  color: #0056b3;
+}
+.description-section {
+  flex: 1;
+}
+.book-detail-btns {
+  display: flex;
+  gap: 18px;
+  justify-content: flex-end;
+  margin-top: 18px;
+}
+.add-cart-btn, .buy-btn {
+  padding: 10px 28px;
+  border-radius: 6px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.add-cart-btn {
+  background: #fff;
+  color: #222;
+  border: 1.5px solid #222;
+}
+.add-cart-btn:hover {
+  background: #f2f2f2;
+}
+.buy-btn {
+  background: #222;
+  color: #fff;
+}
+.buy-btn:hover {
+  background: #444;
+}
+@media (max-width: 900px) {
+  .book-detail-flex, .book-extra-container, .book-detail-btns {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 18px;
+  }
+  .book-carousel {
+    margin-bottom: 18px;
+  }
+}

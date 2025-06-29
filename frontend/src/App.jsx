@@ -5,8 +5,8 @@ import SellNow from "./components/SellNow"; // Import SellNow component
 import BookDetail from "./components/BookDetail";
 import Nav from "./components/Nav"; // Import Nav component
 import HomePage from "./components/HomePage"; // Import HomePage component
-import SignUp from "./components/SignUp"; // Import SignUp component
-import Profile from "./components/Profile"; // Import Profile component
+import SignUp from "./pages/SignUp"; // Import SignUp component
+import Profile from "./pages/Profile"; // Import Profile component
 import Footer from "./components/Footer"; // Import Footer component
 import BookSciFi from "./components/BookSciFi"; // Import BookSciFi component
 import FantasyPage from "./components/Book_fantasyPage"; // Import Fantasy Page
