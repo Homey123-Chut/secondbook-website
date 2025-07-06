@@ -10,16 +10,29 @@ const Nav = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const userProfile = JSON.parse(localStorage.getItem("userProfile"));
-    if (userProfile) {
-      setIsSignedIn(true);
-      setProfilePicture(userProfile.profilePicture);
-    }
+    const updateAuthState = () => {
+      const userProfile = JSON.parse(localStorage.getItem("userProfile"));
+      if (userProfile) {
+        setIsSignedIn(true);
+        setProfilePicture(userProfile.profilePicture);
+      } else {
+        setIsSignedIn(false);
+        setProfilePicture(null);
+      }
+    };
+
+    window.addEventListener("storage-changed", updateAuthState);
+    updateAuthState(); // Initial check
+
+    return () => {
+      window.removeEventListener("storage-changed", updateAuthState);
+    };
   }, []);
 
   const handleLogout = () => {
     localStorage.removeItem("userProfile");
-    setIsSignedIn(false);
+    localStorage.removeItem("token");
+    window.dispatchEvent(new Event("storage-changed"));
     navigate("/");
   };
 
@@ -62,12 +75,14 @@ const Nav = () => {
             onMouseEnter={() => setShowProfile(true)}
             onMouseLeave={() => setShowProfile(false)}
           >
-            <div className="profile-link">
-              <img
-                src={profilePicture || "https://via.placeholder.com/40"}
-                alt="Profile"
-                className="profile-pic"
-              />
+            <div className="profile-link-container">
+              <Link to="/profile" className="profile-pic-link">
+                <img
+                  src={profilePicture || "https://via.placeholder.com/40"}
+                  alt="Profile"
+                  className="profile-pic"
+                />
+              </Link>
               <span className="arrow">&#9662;</span>
             </div>
             <div

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { registerUser, loginUser } from "../service/userApi"; // Import API functions
 import "../styles/SignUpPage.css";
 
 const SignUp = () => {
@@ -24,16 +25,24 @@ const SignUp = () => {
     setLoginInfo({ ...loginInfo, [name]: value });
   };
 
-  // Handle login submit (dummy, replace with real logic)
-  const handleLogin = (e) => {
+  // Handle login submit
+  const handleLogin = async (e) => {
     e.preventDefault();
     if (!loginInfo.username || !loginInfo.password) {
       setError("Please enter username and password.");
       return;
     }
-    // Dummy: just go to profile
-    localStorage.setItem("userProfile", JSON.stringify({ username: loginInfo.username }));
-    navigate("/profile");
+    try {
+      setError("");
+      const data = await loginUser(loginInfo);
+      // Assuming API returns user object and token
+      localStorage.setItem("userProfile", JSON.stringify(data.user));
+      localStorage.setItem("token", data.token);
+      window.dispatchEvent(new Event("storage-changed")); // Notify Nav
+      navigate("/profile");
+    } catch (err) {
+      setError(err.response?.data?.message || "Login failed. Please check your credentials.");
+    }
   };
 
   // Handle sign up input
@@ -42,30 +51,45 @@ const SignUp = () => {
     setUserInfo({ ...userInfo, [name]: value });
   };
 
+  // Handle image file selection
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      setUserInfo({ ...userInfo, profilePicture: URL.createObjectURL(file) });
+      setUserInfo({ ...userInfo, profilePicture: file });
     }
   };
 
-  const handleSubmit = (e) => {
+  // Handle sign up submit
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (
-      !userInfo.name ||
-      !userInfo.email ||
-      !userInfo.profilePicture ||
-      !userInfo.username ||
-      !userInfo.password
-    ) {
+    const { name, email, profilePicture, username, password } = userInfo;
+
+    if (!name || !email || !profilePicture || !username || !password) {
       setError("All fields are required!");
       return;
     }
-    localStorage.setItem("userProfile", JSON.stringify(userInfo));
-    navigate("/profile");
+
+    const formData = new FormData();
+    formData.append("name", name);
+    formData.append("email", email);
+    formData.append("username", username);
+    formData.append("password", password);
+    formData.append("profilePicture", profilePicture);
+
+    try {
+      setError("");
+      const data = await registerUser(formData);
+      // Assuming API returns user object and token
+      localStorage.setItem("userProfile", JSON.stringify(data.user));
+      localStorage.setItem("token", data.token);
+      window.dispatchEvent(new Event("storage-changed")); // Notify Nav
+      navigate("/profile");
+    } catch (err) {
+      setError(err.response?.data?.message || "Sign up failed. Please try again.");
+    }
   };
 
-  // Swap sides
+  // Swap between login and sign up forms
   const handleSwap = () => {
     setIsSignUp(!isSignUp);
     setError("");
@@ -149,6 +173,7 @@ const SignUp = () => {
             />
             <input
               type="file"
+              name="profilePicture"
               accept="image/*"
               onChange={handleImageChange}
               className="signup-input"
