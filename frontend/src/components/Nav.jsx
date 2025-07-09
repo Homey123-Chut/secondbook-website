@@ -1,5 +1,7 @@
+// frontend/components/Nav.js
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { fetchCurrentUser } from "../service/userApi";
 import "../styles/Nav.css";
 
 const Nav = () => {
@@ -10,28 +12,28 @@ const Nav = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const updateAuthState = () => {
-      const userProfile = JSON.parse(localStorage.getItem("userProfile"));
-      if (userProfile) {
+    const checkAuth = async () => {
+      try {
+        const user = await fetchCurrentUser();
+        const imageUrl = user.profile_photo
+          ? `http://localhost:3000/uploads/${user.profile_photo}`
+          : "https://via.placeholder.com/40";
+        setProfilePicture(imageUrl);
         setIsSignedIn(true);
-        setProfilePicture(userProfile.profilePicture);
-      } else {
+      } catch {
         setIsSignedIn(false);
         setProfilePicture(null);
       }
     };
 
-    window.addEventListener("storage-changed", updateAuthState);
-    updateAuthState(); // Initial check
+    checkAuth();
 
-    return () => {
-      window.removeEventListener("storage-changed", updateAuthState);
-    };
+    window.addEventListener("storage-changed", checkAuth);
+    return () => window.removeEventListener("storage-changed", checkAuth);
   }, []);
 
   const handleLogout = () => {
-    localStorage.removeItem("userProfile");
-    localStorage.removeItem("token");
+    document.cookie = "token=; Max-Age=0"; // Clear cookie
     window.dispatchEvent(new Event("storage-changed"));
     navigate("/");
   };
@@ -43,11 +45,8 @@ const Nav = () => {
         <span className="logo-bold">BOOK</span>
       </Link>
       <div className="nav-links">
-        <Link to="/" className="nav-link">
-          Home
-        </Link>
+        <Link to="/" className="nav-link">Home</Link>
 
-        {/* Genres Dropdown */}
         <div
           className="genres-menu"
           onMouseEnter={() => setShowGenres(true)}
@@ -77,23 +76,13 @@ const Nav = () => {
           >
             <div className="profile-link-container">
               <Link to="/profile" className="profile-pic-link">
-                <img
-                  src={profilePicture || "https://via.placeholder.com/40"}
-                  alt="Profile"
-                  className="profile-pic"
-                />
+                <img src={profilePicture} alt="Profile" className="profile-pic" />
               </Link>
               <span className="arrow">&#9662;</span>
             </div>
-            <div
-              className={`dropdown profile-dropdown ${
-                showProfile ? "show" : ""
-              }`}
-            >
+            <div className={`dropdown profile-dropdown ${showProfile ? "show" : ""}`}>
               <Link to="/profile">Profile</Link>
-              <button onClick={handleLogout} className="logout-btn">
-                Logout
-              </button>
+              <button onClick={handleLogout} className="logout-btn">Logout</button>
             </div>
           </div>
         ) : (

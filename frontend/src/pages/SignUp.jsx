@@ -60,34 +60,33 @@ const SignUp = () => {
   };
 
   // Handle sign up submit
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const { name, email, profilePicture, username, password } = userInfo;
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  const { name, email, profilePicture, username, password } = userInfo;
 
-    if (!name || !email || !profilePicture || !username || !password) {
-      setError("All fields are required!");
-      return;
-    }
+  if (!name || !email || !profilePicture || !username || !password) {
+    setError("All fields are required!");
+    return;
+  }
 
-    const formData = new FormData();
-    formData.append("name", name);
-    formData.append("email", email);
-    formData.append("username", username);
-    formData.append("password", password);
-    formData.append("profilePicture", profilePicture);
+  const formData = new FormData();
+  formData.append("full_name", name);
+  formData.append("email", email);
+  formData.append("username", username);
+  formData.append("password", password);
+  formData.append("profile_photo", profilePicture);
 
-    try {
-      setError("");
-      const data = await registerUser(formData);
-      // Assuming API returns user object and token
-      localStorage.setItem("userProfile", JSON.stringify(data.user));
-      localStorage.setItem("token", data.token);
-      window.dispatchEvent(new Event("storage-changed")); // Notify Nav
-      navigate("/profile");
-    } catch (err) {
-      setError(err.response?.data?.message || "Sign up failed. Please try again.");
-    }
-  };
+  try {
+    setError("");
+    const data = await registerUser(formData);
+    localStorage.setItem("userProfile", JSON.stringify(data.user));
+    localStorage.setItem("token", data.token);
+    window.dispatchEvent(new Event("storage-changed"));
+    navigate("/profile");
+  } catch (err) {
+    setError(err.response?.data?.error || "Sign up failed.");
+  }
+};
 
   // Swap between login and sign up forms
   const handleSwap = () => {
