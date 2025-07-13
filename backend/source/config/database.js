@@ -14,10 +14,5 @@ const sequelize = new Sequelize(
   }
 );
 
-console.log("DB_name: ", process.env.DB_Name);
-console.log("DB_USER: ", process.env.DB_USER);
-console.log("DB_PASSWORD: ", process.env.DB_PASSWORD);
-console.log("DB_HOST: ", process.env.DB_HOST);
-console.log("Current working directory:", process.cwd());
 
 export default sequelize;

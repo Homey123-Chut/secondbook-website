@@ -114,6 +114,7 @@
   background: #fafafa;
   outline: none;
   transition: border 0.2s;
+  color: #222;
 }
 
 .signup-input:not(:last-child) {

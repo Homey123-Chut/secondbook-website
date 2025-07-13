@@ -11,7 +11,7 @@ import { authenticateToken } from "../middleware/auth.js";
 
 const router = express.Router();
 
-router.post("/signup", upload.single("profilePicture"), signupUser);
+router.post("/signup", upload.single("profile_photo"), signupUser);
 router.post("/login", loginUser);
 router.get("/:id", authenticateToken, getUserProfile);
 router.put("/:id", authenticateToken, updateUserProfile);

@@ -2,6 +2,7 @@
 import User from "../models/user.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import { Op } from "sequelize"; // <-- Add this import
 
 // Signup (register) a new user
 export const signupUser = async (req, res) => {
@@ -11,7 +12,7 @@ export const signupUser = async (req, res) => {
 
     const existingUser = await User.findOne({
       where: {
-        [User.sequelize.Op.or]: [{ username }, { email }],
+        [Op.or]: [{ username }, { email }],
       },
     });
     if (existingUser) {

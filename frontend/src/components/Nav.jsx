@@ -12,22 +12,20 @@ const Nav = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const checkAuth = async () => {
-      try {
-        const user = await fetchCurrentUser();
-        const imageUrl = user.profile_photo
-          ? `http://localhost:3000/uploads/${user.profile_photo}`
-          : "https://via.placeholder.com/40";
-        setProfilePicture(imageUrl);
+    const checkAuth = () => {
+      const user = JSON.parse(localStorage.getItem("userProfile"));
+      if (user && user.profile_photo) {
+        setProfilePicture(`http://localhost:3000/uploads/${user.profile_photo}`);
         setIsSignedIn(true);
-      } catch {
-        setIsSignedIn(false);
+      } else if (user) {
+        setProfilePicture("https://via.placeholder.com/40");
+        setIsSignedIn(true);
+      } else {
         setProfilePicture(null);
+        setIsSignedIn(false);
       }
     };
-
     checkAuth();
-
     window.addEventListener("storage-changed", checkAuth);
     return () => window.removeEventListener("storage-changed", checkAuth);
   }, []);

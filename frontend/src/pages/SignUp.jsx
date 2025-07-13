@@ -7,7 +7,6 @@ const SignUp = () => {
   const navigate = useNavigate();
   const [isSignUp, setIsSignUp] = useState(false);
   const [userInfo, setUserInfo] = useState({
-    name: "",
     email: "",
     profilePicture: null,
     username: "",
@@ -62,15 +61,14 @@ const SignUp = () => {
   // Handle sign up submit
 const handleSubmit = async (e) => {
   e.preventDefault();
-  const { name, email, profilePicture, username, password } = userInfo;
+  const { email, profilePicture, username, password } = userInfo;
 
-  if (!name || !email || !profilePicture || !username || !password) {
+  if (!email || !profilePicture || !username || !password) {
     setError("All fields are required!");
     return;
   }
 
   const formData = new FormData();
-  formData.append("full_name", name);
   formData.append("email", email);
   formData.append("username", username);
   formData.append("password", password);
@@ -151,14 +149,6 @@ const handleSubmit = async (e) => {
               name="password"
               placeholder="Password"
               value={userInfo.password}
-              onChange={handleInputChange}
-              className="signup-input"
-            />
-            <input
-              type="text"
-              name="name"
-              placeholder="Full Name"
-              value={userInfo.name}
               onChange={handleInputChange}
               className="signup-input"
             />

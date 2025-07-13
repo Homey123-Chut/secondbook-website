@@ -33,12 +33,12 @@ const Profile = () => {
       <div className="profile-info">
         <div className="profile-image">
           <img
-            src={userInfo.profilePicture || "https://via.placeholder.com/150"}
+            src={userInfo.profile_photo ? `http://localhost:3000/uploads/${userInfo.profile_photo}` : "https://via.placeholder.com/150"}
             alt="Profile"
           />
         </div>
         <div className="profile-details">
-          <p><strong>Name:</strong> {userInfo.name || "N/A"}</p>
+          <p><strong>Name:</strong> {userInfo.username || "N/A"}</p>
           <p><strong>Email:</strong> {userInfo.email || "N/A"}</p>
           <p><strong>Date of Birth:</strong> {userInfo.dateOfBirth || "N/A"}</p>
           <p><strong>Address:</strong> {userInfo.address || "N/A"}</p>
