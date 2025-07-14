@@ -49,6 +49,23 @@ export const updateBook = async (req, res) => {
 };
 
 // Delete a Book
+// Get recent books
+export const getRecentBooks = async (req, res) => {
+  try {
+    const limit = Number(req.query.limit) || 8;
+    const offset = Number(req.query.offset) || 0;
+    const books = await Book.findAll({
+      include: [{ model: BookImage }],
+      order: [['listed_at', 'DESC']],
+      limit,
+      offset,
+    });
+    res.json(books);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
 export const deleteBook = async (req, res) => {
   try {
     const book = await Book.findByPk(req.params.id);

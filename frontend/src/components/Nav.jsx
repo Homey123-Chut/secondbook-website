@@ -14,10 +14,33 @@ const Nav = () => {
   useEffect(() => {
     const checkAuth = () => {
       const user = JSON.parse(localStorage.getItem("userProfile"));
+
+      /*
+        The backend returns the profile_photo field in one of several formats:
+        1. "uploads/filename.jpg" (preferred)
+        2. "uploads\\filename.jpg" (Windows back-slashes)
+        3. A full absolute URL if the user updated their avatar from a remote source.
+
+        We normalise these variants so that the <img> tag always receives a valid, absolute URL.
+      */
       if (user && user.profile_photo) {
-        setProfilePicture(`http://localhost:3000/uploads/${user.profile_photo}`);
+        // Replace any back-slashes with forward slashes so that the URL is valid in the browser
+        let sanitisedPath = user.profile_photo.replace(/\\\\/g, "/");
+
+        // If the path is not already a URL, prepend the uploads directory when necessary
+        if (!sanitisedPath.startsWith("http") && !sanitisedPath.startsWith("uploads/")) {
+          sanitisedPath = `uploads/${sanitisedPath}`;
+        }
+
+        // Finally, build an absolute URL if we still have a relative path
+        const absoluteUrl = sanitisedPath.startsWith("http")
+          ? sanitisedPath
+          : `http://localhost:3000/${sanitisedPath}`;
+
+        setProfilePicture(absoluteUrl);
         setIsSignedIn(true);
       } else if (user) {
+        // Fallback avatar when the user hasn't uploaded one yet
         setProfilePicture("https://via.placeholder.com/40");
         setIsSignedIn(true);
       } else {
@@ -32,6 +55,7 @@ const Nav = () => {
 
   const handleLogout = () => {
     document.cookie = "token=; Max-Age=0"; // Clear cookie
+    localStorage.removeItem("userProfile"); // Remove user profile from localStorage
     window.dispatchEvent(new Event("storage-changed"));
     navigate("/");
   };
@@ -74,7 +98,7 @@ const Nav = () => {
           >
             <div className="profile-link-container">
               <Link to="/profile" className="profile-pic-link">
-                <img src={profilePicture} alt="Profile" className="profile-pic" />
+                <img src={profilePicture} alt="Profile" className="profile-picture" />
               </Link>
               <span className="arrow">&#9662;</span>
             </div>

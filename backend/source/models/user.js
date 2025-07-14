@@ -30,6 +30,12 @@ const User = sequelize.define('User', {
   address: {
     type: DataTypes.TEXT,
   },
+  favorite_genre: {
+    type: DataTypes.STRING(100),
+  },
+  favorite_book: {
+    type: DataTypes.STRING(255),
+  },
   phone_number: {
     type: DataTypes.STRING(20),
   },

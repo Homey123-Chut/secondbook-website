@@ -8,7 +8,7 @@ const SignUp = () => {
   const [isSignUp, setIsSignUp] = useState(false);
   const [userInfo, setUserInfo] = useState({
     email: "",
-    profilePicture: null,
+
     username: "",
     password: "",
   });
@@ -50,29 +50,23 @@ const SignUp = () => {
     setUserInfo({ ...userInfo, [name]: value });
   };
 
-  // Handle image file selection
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      setUserInfo({ ...userInfo, profilePicture: file });
-    }
-  };
+
 
   // Handle sign up submit
-const handleSubmit = async (e) => {
-  e.preventDefault();
-  const { email, profilePicture, username, password } = userInfo;
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const { email, username, password } = userInfo;
 
-  if (!email || !profilePicture || !username || !password) {
-    setError("All fields are required!");
-    return;
-  }
+    if (!email || !username || !password) {
+      setError("Username, email and password are required!");
+      return;
+    }
 
-  const formData = new FormData();
-  formData.append("email", email);
-  formData.append("username", username);
-  formData.append("password", password);
-  formData.append("profile_photo", profilePicture);
+    const formData = new FormData();
+    formData.append("email", email);
+    formData.append("username", username);
+    formData.append("password", password);
+
 
   try {
     setError("");
@@ -160,13 +154,7 @@ const handleSubmit = async (e) => {
               onChange={handleInputChange}
               className="signup-input"
             />
-            <input
-              type="file"
-              name="profilePicture"
-              accept="image/*"
-              onChange={handleImageChange}
-              className="signup-input"
-            />
+
             <button className="submit-btn" type="submit">
               Submit
             </button>

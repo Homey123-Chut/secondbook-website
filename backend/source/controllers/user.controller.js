@@ -8,6 +8,11 @@ import { Op } from "sequelize"; // <-- Add this import
 export const signupUser = async (req, res) => {
   try {
     const { username, email, password, full_name, address, phone_number } = req.body;
+
+    // Basic validation
+    if (!username || !email || !password) {
+      return res.status(400).json({ error: "Username, email and password are required" });
+    }
     const profile_photo = req.file?.path || null;
 
     const existingUser = await User.findOne({
@@ -22,13 +27,13 @@ export const signupUser = async (req, res) => {
     const password_hash = await bcrypt.hash(password, 10);
 
     const user = await User.create({
-      username,
-      email,
+      username: username.trim(),
+      email: email.trim(),
       password_hash,
       full_name,
       profile_photo,
-      address,
-      phone_number,
+      address: address ?? "", // ensure not null for strict DB schemas
+      phone_number: phone_number ?? "",
     });
 
     const token = jwt.sign(
@@ -55,8 +60,17 @@ export const loginUser = async (req, res) => {
   try {
     const { username, password } = req.body;
 
-    // Find user by username
-    const user = await User.findOne({ where: { username } });
+    // Check required fields
+    if (!username || !password) {
+      return res.status(400).json({ error: "Username and password are required" });
+    }
+
+    // Find user by username or email
+    const user = await User.findOne({
+      where: {
+        [Op.or]: [{ username }, { email: username }],
+      },
+    });
     if (!user) {
       return res.status(401).json({ error: "Invalid username or password" });
     }
@@ -108,23 +122,39 @@ export const getUserProfile = async (req, res) => {
 export const updateUserProfile = async (req, res) => {
   try {
     const userId = req.params.id;
-    const { full_name, address, phone_number } = req.body;
-    const profile_photo = req.file ? req.file.filename : undefined;
+
+    // Combine JSON fields with any uploaded file path (if multipart form)
+    const updates = { ...req.body };
+    if (req.file) {
+      updates.profile_photo = req.file.filename;
+    }
 
     const user = await User.findByPk(userId);
     if (!user) {
       return res.status(404).json({ error: "User not found" });
     }
 
-    user.full_name = full_name ?? user.full_name;
-    user.profile_photo = profile_photo ?? user.profile_photo;
-    user.address = address ?? user.address;
-    user.phone_number = phone_number ?? user.phone_number;
+    // Only update keys that are allowed and have a non-empty value
+    const allowed = [
+      "full_name",
+      "profile_photo",
+      "address",
+      "phone_number",
+
+      "favorite_genre",
+      "favorite_book",
+    ];
+    allowed.forEach((key) => {
+      if (updates[key] !== undefined && updates[key] !== "") {
+        user[key] = updates[key];
+      }
+    });
 
     await user.save();
 
     res.json({ message: "Profile updated", user });
   } catch (err) {
+    console.error(err);
     res.status(500).json({ error: err.message });
   }
 };

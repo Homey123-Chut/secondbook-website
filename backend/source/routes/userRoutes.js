@@ -14,7 +14,7 @@ const router = express.Router();
 router.post("/signup", upload.single("profile_photo"), signupUser);
 router.post("/login", loginUser);
 router.get("/:id", authenticateToken, getUserProfile);
-router.put("/:id", authenticateToken, updateUserProfile);
+router.put("/:id", authenticateToken, upload.single("profile_photo"), updateUserProfile);
 router.delete("/:id", authenticateToken, deleteUser);
 
 export default router;
