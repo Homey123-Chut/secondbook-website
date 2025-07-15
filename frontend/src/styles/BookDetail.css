@@ -11,7 +11,7 @@
 
 .book-detail-container {
     display: flex;
-    flex-direction: row; /* Changed to row for horizontal layout */
+    flex-direction: row;
     gap: 20px;
     align-items: flex-start;
     background: white;
@@ -26,6 +26,8 @@
     object-fit: cover;
     margin-bottom: 20px;
     border: solid 1px;
+    transition: box-shadow 0.12s linear, transform 0.12s linear;
+    will-change: box-shadow, transform;
 }
 
 .book-info {
@@ -70,6 +72,12 @@
     font-size: 1rem;
     margin-top: 10px;
     box-shadow: 3px 3px rgb(199, 196, 194);
+    transition: background 0.12s linear, transform 0.12s linear;
+    will-change: background, transform;
+.buy-btn:hover {
+    background-color: #0056b3;
+    transform: scale(1.03);
+}
 }
 
 .buy-btn:hover {

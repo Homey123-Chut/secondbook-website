@@ -1,5 +1,6 @@
-import React, { useState } from "react";
-import { useParams, useNavigate, useLocation } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import axios from "axios";
 import "../styles/BookDetail.css";
 import { fantasyBooks } from "./Book_fantasy";
 import { fictionBooks } from "./Fiction";
@@ -21,50 +22,61 @@ const genres = {
 };
 
 const BookDetail = () => {
-  const { genre, id } = useParams();
+  const { id } = useParams();
   const navigate = useNavigate();
-  const location = useLocation();
-
-  // Validate the genre and default to an empty array if invalid
-  const booksArr = genres[genre] || [];
-  if (!Array.isArray(booksArr)) {
-    return <p>Invalid genre!</p>;
-  }
-
-  // Find the book by ID from the genre or use the book passed via state
-  const book = booksArr.find((book) => book.id === parseInt(id)) || location.state?.book;
+  const [book, setBook] = useState(null);
+  const [currentImg, setCurrentImg] = useState(0);
+  const [images, setImages] = useState([]);
+  useEffect(() => {
+    const fetchBook = async () => {
+      try {
+        const base = import.meta.env.VITE_API_BASE || "http://localhost:3000";
+        const res = await axios.get(`${base}/api/books/${id}`);
+        setBook(res.data);
+        // If book has BookImages array, use those; else fallback to image/bookImage
+        if (res.data.BookImages && res.data.BookImages.length > 0) {
+          setImages(res.data.BookImages.map(img => img.image_url));
+        } else {
+          setImages([res.data.image || res.data.bookImage]);
+        }
+      } catch (err) {
+        setBook(null);
+      }
+    };
+    fetchBook();
+  }, [id]);
 
   if (!book) {
     return <p>Book not found!</p>;
   }
 
-  // For image carousel: use book.images (array) or fallback to [book.image]
-  const image = book.image && book.image.length > 0
-    ? book.image
-    : [book.image || book.bookImage];
-
-  const [currentImg, setCurrentImg] = useState(0);
-
   const handlePrevImg = () => {
-    setCurrentImg((prev) => (prev === 0 ? image.length - 1 : prev - 1));
+    setCurrentImg((prev) => (prev === 0 ? images.length - 1 : prev - 1));
   };
-
   const handleNextImg = () => {
-    setCurrentImg((prev) => (prev === image.length - 1 ? 0 : prev + 1));
+    setCurrentImg((prev) => (prev === images.length - 1 ? 0 : prev + 1));
   };
-
-  // Handle Buy Now button click
   const handleBuyNow = () => {
     navigate("/payment", { state: { book } });
   };
-
-  // Handle Add to Cart button click
-  const handleAddToCart = () => {
-    // Implement your add to cart logic here
-    alert("Book added to cart!");
+  const handleAddToCart = async () => {
+    try {
+      const user = JSON.parse(localStorage.getItem("userProfile"));
+      if (!user || !user.user_id) {
+        alert("Please log in to add to cart.");
+        return;
+      }
+      const base = import.meta.env.VITE_API_BASE || "http://localhost:3000";
+      const res = await axios.post(`${base}/api/cart/add`, {
+        user_id: user.user_id,
+        book_id: book.book_id || book.id,
+        quantity: 1
+      });
+      alert(res.data.message || "Book added to cart!");
+    } catch (err) {
+      alert("Failed to add to cart");
+    }
   };
-
-  // Handle seller profile click
   const handleSellerClick = () => {
     navigate(`/profile/${book.sellerId || book.seller}`, { state: { seller: book.seller } });
   };
@@ -76,7 +88,7 @@ const BookDetail = () => {
         <div className="book-carousel">
           <button className="carousel-arrow left-arrow" onClick={handlePrevImg}>&lt;</button>
           <img
-            src={image[currentImg]}
+            src={images[currentImg]}
             alt={book.title || book.bookTitle}
             className="book-image"
           />
@@ -86,7 +98,7 @@ const BookDetail = () => {
         <div className="book-info">
           <h2 className="book-title">{book.title || book.bookTitle}</h2>
           <h3 className="book-author">By {book.author || "Unknown"}</h3>
-          <h3 className="book-genre">{genre || book.genre}</h3>
+          <h3 className="book-genre">{book.genre}</h3>
           <p className="book-price"><strong>Price:</strong> {book.price}</p>
         </div>
       </div>

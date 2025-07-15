@@ -15,12 +15,7 @@ export const books = [
     id: 1,
     title: "Educated",
     price: "2$",
-    image: [
-      "https://i.ebayimg.com/00/s/MTYwMFgxMjAw/z/JAwAAOSwAK1hb6PV/$_57.JPG?set_id=8800005007",
-      "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1646950434i/60588268.jpg",
-      "https://blog.elfdubai.org/ELF_Blog_Educated_Tara_Westover_Review.jpg"
-
-    ],
+    image: "https://i.ebayimg.com/00/s/MTYwMFgxMjAw/z/JAwAAOSwAK1hb6PV/$_57.JPG?set_id=8800005007",
     description: "A memoir by Tara Westover.",
     author: "Tara Westover",
     seller: "John Doe",

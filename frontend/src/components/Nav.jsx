@@ -91,21 +91,10 @@ const Nav = () => {
         </Link>
 
         {isSignedIn ? (
-          <div
-            className="profile-menu"
-            onMouseEnter={() => setShowProfile(true)}
-            onMouseLeave={() => setShowProfile(false)}
-          >
-            <div className="profile-link-container">
-              <Link to="/profile" className="profile-pic-link">
-                <img src={profilePicture} alt="Profile" className="profile-picture" />
-              </Link>
-              <span className="arrow">&#9662;</span>
-            </div>
-            <div className={`dropdown profile-dropdown ${showProfile ? "show" : ""}`}>
-              <Link to="/profile">Profile</Link>
-              <button onClick={handleLogout} className="logout-btn">Logout</button>
-            </div>
+          <div className="profile-menu">
+            <Link to="/profile" className="profile-pic-link">
+              <img src={profilePicture} alt="Profile" className="profile-picture" />
+            </Link>
           </div>
         ) : (
           <Link to="/signup" className="nav-link signup-link rainbow-btn">

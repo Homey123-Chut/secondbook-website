@@ -56,7 +56,6 @@ background-image: url("https://www.transparenttextures.com/patterns/lined-paper-
   align-items: center;
   margin: 36px 0 24px 0;
   gap: 0;
-  animation: fadeIn 1s;
 }
 
 .search-bar {
@@ -88,15 +87,15 @@ background-image: url("https://www.transparenttextures.com/patterns/lined-paper-
   font-size: 0.95rem;
   font-weight: 600;
   cursor: pointer;
-  transition: background 0.2s, color 0.2s, border 0.2s;
   box-shadow: none;
   letter-spacing: 0.05em;
   margin-bottom: 0;
+  margin-top: 0;
 }
 
 .search-btn:hover {
-  background: #393c41;
-  border-color: #393c41;
+  background: #171a20;
+  border-color: #171a20;
 }
 
 .banner {
@@ -107,7 +106,6 @@ background-image: url("https://www.transparenttextures.com/patterns/lined-paper-
   border-radius: 12px;
   padding: 32px 24px;
   box-shadow: 0 2px 16px #00000008;
-  animation: fadeIn 1.2s;
   border: 1px solid #ededed;
 }
 
@@ -131,10 +129,7 @@ background-image: url("https://www.transparenttextures.com/patterns/lined-paper-
   max-width: 1100px;
   background: #fff;
   border-radius: 10px;
-  
   padding: 36px 24px 24px 24px;
-  animation: slideUp 1s;
-  
 }
 
 .section-title {
@@ -157,13 +152,12 @@ background-image: url("https://www.transparenttextures.com/patterns/lined-paper-
   font-weight: 600;
   margin-top: 18px;
   font-size: 1.05rem;
-  transition: color 0.2s;
   letter-spacing: 0.05em;
 }
 
 .see-more:hover {
-  color: #393c41;
-  text-decoration: underline;
+  color: #171a20;
+  text-decoration: none;
 }
 
 .header-bg {
@@ -332,11 +326,10 @@ background-image: url("https://www.transparenttextures.com/patterns/lined-paper-
   border: 1px solid #ddd;
   background: #fff;
   outline: none;
-  transition: border 0.2s;
 }
 
 .filter-select:focus {
-  border: 1.5px solid #888;
+  border: 1px solid #ddd;
 }
 
 .browse-btn {
@@ -347,11 +340,11 @@ background-image: url("https://www.transparenttextures.com/patterns/lined-paper-
   color: #fff;
   border: none;
   cursor: pointer;
-  transition: background 0.2s;
+  margin-top: 0;
 }
 
 .browse-btn:hover {
-  background: #444;
+  background: #222;
 }
 
 @media (max-width: 700px) {

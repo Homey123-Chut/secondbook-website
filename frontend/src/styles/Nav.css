@@ -125,20 +125,8 @@
   box-shadow: 0 4px 16px #00000008;
   z-index: 10;
   flex-direction: column;
-  animation: fadeInDropdown 0.3s;
   overflow: hidden;
   border: 1px solid #ededed;
-}
-
-@keyframes fadeInDropdown {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
 }
 
 .dropdown.show {
@@ -146,23 +134,31 @@
 }
 
 .dropdown a,
-.profile-dropdown a {
+.profile-dropdown a,
+.profile-dropdown button {
   color: #171a20;
   padding: 13px 20px;
   text-decoration: none;
   font-weight: 500;
-  transition: background 0.2s, color 0.2s;
   border-bottom: 1px solid #f4f4f4;
   background: none;
+  display: block;
+  width: 100%;
+  text-align: left;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
 }
 
 .dropdown a:last-child,
-.profile-dropdown a:last-child {
+.profile-dropdown a:last-child,
+.profile-dropdown button:last-child {
   border-bottom: none;
 }
 
 .dropdown a:hover,
-.profile-dropdown a:hover {
+.profile-dropdown a:hover,
+.profile-dropdown button:hover {
   background: #f4f4f4;
   color: #393c41;
 }
@@ -217,9 +213,9 @@
   width: 100%;
   text-align: left;
   cursor: pointer;
-  transition: background 0.2s, color 0.2s;
   border-top: 1px solid #f4f4f4;
   font-size: 1rem;
+  display: block;
 }
 
 .logout-btn:hover {

@@ -30,14 +30,15 @@
   box-shadow: 0 6px 32px rgba(60, 60, 120, 0.13);
   background: #fff;
   cursor: pointer;
-  transition: transform 0.22s cubic-bezier(.4,2,.6,1), box-shadow 0.22s cubic-bezier(.4,2,.6,1);
+  transition: transform 0.13s linear, box-shadow 0.13s linear;
+  will-change: transform, box-shadow;
   position: relative;
   overflow: hidden;
 }
 
 .book-card:hover {
-  transform: translateY(-8px) scale(1.04);
-  box-shadow: 0 16px 40px rgba(60, 60, 120, 0.18);
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 8px 24px rgba(60, 60, 120, 0.14);
   z-index: 2;
 }
 
@@ -89,7 +90,8 @@
   letter-spacing: 0.03em;
   box-shadow: 0 2px 8px rgba(60, 60, 120, 0.07);
   cursor: pointer;
-  transition: background 0.18s, transform 0.18s;
+  transition: background 0.12s linear, transform 0.12s linear;
+  will-change: background, transform;
 }
 .add-to-cart-btn:disabled {
   background: #e0e7ff;
@@ -98,7 +100,7 @@
 }
 .add-to-cart-btn:not(:disabled):hover {
   background: linear-gradient(90deg, #4f46e5 60%, #6366f1 100%);
-  transform: scale(1.06);
+  transform: scale(1.03);
 }
 .book-card::before {
   content: 'Best Pick';

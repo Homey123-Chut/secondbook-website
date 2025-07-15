@@ -5,6 +5,7 @@ import sequelize from "./config/database.js";
 import userRoutes from "./routes/userRoutes.js";
 import fakeDataRoutes from "./routes/fakeDataRoutes.js";
 import bookRoutes from "./routes/bookRoutes.js";
+import cartRoutes from "./routes/cartRoutes.js";
 import dotenv from "dotenv";
 import cors from "cors";
 
@@ -31,6 +32,7 @@ app.use("/uploads", express.static(path.join(process.cwd(), "uploads")));
 app.use("/api/users", userRoutes);
 app.use("/api/fake", fakeDataRoutes);
 app.use("/api/books", bookRoutes);
+app.use("/api/cart", cartRoutes);
 
 // Sync DB then start server
 sequelize.sync({ alter: true }).then(() => {
