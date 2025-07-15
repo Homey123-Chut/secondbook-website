@@ -21,6 +21,8 @@ const Profile = () => {
   useEffect(() => {
     if (isEditing) {
       setFormData({
+        username: userInfo.username || "",
+        email: userInfo.email || "",
         full_name: userInfo.full_name || "",
         address: userInfo.address || "",
         phone_number: userInfo.phone_number || "",
@@ -35,10 +37,13 @@ const Profile = () => {
   const buildAvatar = () => {
     if (userInfo && userInfo.profile_photo) {
       let path = userInfo.profile_photo.replace(/\\/g, "/");
-      if (!path.startsWith("http") && !path.startsWith("uploads/")) {
+      // If it's a full URL (Cloudinary or remote), use as-is
+      if (path.startsWith("http")) return path;
+      // If it's a local upload, ensure correct path
+      if (!path.startsWith("uploads/")) {
         path = `uploads/${path}`;
       }
-      return path.startsWith("http") ? path : `http://localhost:3000/${path}`;
+      return `http://localhost:3000/${path}`;
     }
     return "https://via.placeholder.com/150";
   };
@@ -80,8 +85,8 @@ const Profile = () => {
       const url = await uploadToCloudinary(formData.profile_photo);
       payload.profile_photo = url;
     }
-    // Front-end required field validation
-    const required = ["username", "email", "password"];
+    // Front-end required field validation (only username and email required for update)
+    const required = ["username", "email"];
     for (const key of required) {
       if (!payload[key] || payload[key].toString().trim() === "") {
         alert(`${key.replace(/_/g, " ")} is required`);
@@ -173,6 +178,12 @@ const Profile = () => {
                 </label>
               </div>
               <div className="modal-form-section">
+                <label>Username
+                  <input name="username" value={formData.username} onChange={handleInputChange} readOnly />
+                </label>
+                <label>Email
+                  <input name="email" value={formData.email} onChange={handleInputChange} readOnly />
+                </label>
                 <label>Full Name
                   <input name="full_name" value={formData.full_name} onChange={handleInputChange} />
                 </label>
