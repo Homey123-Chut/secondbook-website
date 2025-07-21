@@ -1,10 +1,33 @@
 import { Book, BookImage } from "../models/index.js";
+import { GENRE_VALUES } from "../utils/genreList.js";
+
+// Get all available genres
+export const getGenres = async (req, res) => {
+  try {
+    const genres = GENRE_VALUES.map(value => ({
+      value,
+      label: value.split('-').map(word => 
+        word.charAt(0).toUpperCase() + word.slice(1)
+      ).join(' ')
+    }));
+    res.json(genres);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
 
 // Create (Sell) a Book
 export const sellBook = async (req, res) => {
   try {
-    // You may want to get seller_id from req.user if using authentication
     const { images, ...bookData } = req.body;
+    
+    // Validate genre
+    if (bookData.genre && !GENRE_VALUES.includes(bookData.genre)) {
+      return res.status(400).json({ 
+        error: `Invalid genre. Must be one of: ${GENRE_VALUES.join(', ')}` 
+      });
+    }
+    
     const book = await Book.create(bookData);
 
     // Handle book images if provided
@@ -49,17 +72,48 @@ export const updateBook = async (req, res) => {
 };
 
 // Delete a Book
-// Get recent books
+// Get recent books with optional genre filtering
 export const getRecentBooks = async (req, res) => {
   try {
     const limit = Number(req.query.limit) || 8;
     const offset = Number(req.query.offset) || 0;
+    const genre = req.query.genre;
+    
+    const whereClause = {};
+    if (genre && GENRE_VALUES.includes(genre)) {
+      whereClause.genre = genre;
+    }
+    
     const books = await Book.findAll({
+      where: whereClause,
       include: [{ model: BookImage }],
       order: [['listed_at', 'DESC']],
       limit,
       offset,
     });
+    res.json(books);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+// Get books by genre
+export const getBooksByGenre = async (req, res) => {
+  try {
+    const { genre } = req.params;
+    
+    if (!GENRE_VALUES.includes(genre)) {
+      return res.status(400).json({ 
+        error: `Invalid genre. Must be one of: ${GENRE_VALUES.join(', ')}` 
+      });
+    }
+    
+    const books = await Book.findAll({
+      where: { genre },
+      include: [{ model: BookImage }],
+      order: [['listed_at', 'DESC']],
+    });
+    
     res.json(books);
   } catch (err) {
     res.status(500).json({ error: err.message });

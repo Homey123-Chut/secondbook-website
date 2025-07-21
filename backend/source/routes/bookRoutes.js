@@ -1,11 +1,22 @@
 import express from 'express';
-import { getRecentBooks, sellBook, getBook, updateBook, deleteBook } from '../controllers/book.controller.js';
+import { 
+  getRecentBooks, 
+  sellBook, 
+  getBook, 
+  updateBook, 
+  deleteBook, 
+  getGenres, 
+  getBooksByGenre 
+} from '../controllers/book.controller.js';
 
 const router = express.Router();
 
-router.get('/recent', getRecentBooks);
+// Genre routes
+router.get('/genres', getGenres);
+router.get('/genre/:genre', getBooksByGenre);
 
-// Existing routes (if you want to expose them)
+// Book routes
+router.get('/recent', getRecentBooks);
 router.post('/', sellBook);
 router.get('/:id', getBook);
 router.put('/:id', updateBook);
