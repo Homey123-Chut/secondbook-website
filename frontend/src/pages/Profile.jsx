@@ -48,6 +48,10 @@ const Profile = () => {
     return "https://via.placeholder.com/150";
   };
 
+  const getApiUrl = () => {
+    return import.meta.env.VITE_API_URL || "http://localhost:3000";
+  };
+
   const handleRemoveFromCart = (id) => {
     const updatedCart = cart.filter((item) => item.id !== id);
     setCart(updatedCart);
@@ -100,7 +104,8 @@ const Profile = () => {
     });
     try {
       const token = localStorage.getItem("token") || localStorage.getItem("accessToken");
-      const res = await fetch(`http://localhost:3000/api/users/${userInfo.user_id}`, {
+      const apiUrl = getApiUrl();
+      const res = await fetch(`${apiUrl}/api/users/${userInfo.user_id}`, {
         method: "PUT",
         credentials: "include", // send cookies if backend uses them
         headers: {
@@ -125,13 +130,67 @@ const Profile = () => {
     localStorage.setItem("booksYouSell", JSON.stringify(updatedBooks));
   };
 
+  const handleLogout = async () => {
+    try {
+      const token = localStorage.getItem("token") || localStorage.getItem("accessToken");
+      const apiUrl = getApiUrl();
+      
+      // Call backend logout endpoint
+      await fetch(`${apiUrl}/api/users/logout`, {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+          ...(token ? { Authorization: `Bearer ${token}` } : {}),
+        },
+      });
+
+      // Clear all user data from localStorage
+      localStorage.removeItem("token");
+      localStorage.removeItem("accessToken");
+      localStorage.removeItem("userProfile");
+      localStorage.removeItem("cart");
+      localStorage.removeItem("booksYouSell");
+
+      // Reset component state
+      setUserInfo({});
+      setCart([]);
+      setBooksYouSell([]);
+      setIsEditing(false);
+      setFormData({});
+      setPhotoPreview(null);
+
+      // Show success message and redirect
+      alert("Logged out successfully!");
+      
+      // Redirect to home page (you can change this to your login page)
+      window.location.href = "/";
+      
+    } catch (err) {
+      console.error("Logout error:", err);
+      // Even if backend call fails, clear local data
+      localStorage.removeItem("token");
+      localStorage.removeItem("accessToken");
+      localStorage.removeItem("userProfile");
+      localStorage.removeItem("cart");
+      localStorage.removeItem("booksYouSell");
+      alert("Logged out successfully!");
+      window.location.href = "/";
+    }
+  };
+
   return (
     <div className="profile-container">
       <h2 className="section-title">Profile</h2>
       <div className="profile-info">
-        <button className="edit-btn" onClick={() => setIsEditing((p) => !p)}>
-          {isEditing ? "Cancel" : "Edit Profile"}
-        </button>
+        <div className="profile-buttons">
+          <button className="edit-btn" onClick={() => setIsEditing((p) => !p)}>
+            {isEditing ? "Cancel" : "Edit Profile"}
+          </button>
+          <button className="logout-btn" onClick={handleLogout}>
+            Logout
+          </button>
+        </div>
         <div className="profile-image">
           <img
             src={(() => {
@@ -140,7 +199,7 @@ const Profile = () => {
                 if (!path.startsWith("http") && !path.startsWith("uploads/")) {
                   path = `uploads/${path}`;
                 }
-                return path.startsWith("http") ? path : `http://localhost:3000/${path}`;
+                return path.startsWith("http") ? path : `${getApiUrl()}/${path}`;
               }
               return "https://via.placeholder.com/150";
             })()}

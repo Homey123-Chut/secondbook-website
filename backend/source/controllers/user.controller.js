@@ -102,6 +102,22 @@ export const loginUser = async (req, res) => {
   }
 };
 
+// Logout user
+export const logoutUser = async (req, res) => {
+  try {
+    // Clear the HTTP-only cookie
+    res.clearCookie("token", {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
+    });
+
+    res.json({ message: "Logout successful" });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
 // Get user profile
 export const getUserProfile = async (req, res) => {
   try {

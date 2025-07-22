@@ -1,4 +1,9 @@
 import express from "express";
+import mysql from "mysql2/promise";
+import cors from "cors";
+import dotenv from "dotenv";
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
 import cookieParser from "cookie-parser";
 import path from "path";
 import sequelize from "./config/database.js";
@@ -7,28 +12,48 @@ import fakeDataRoutes from "./routes/fakeDataRoutes.js";
 import bookRoutes from "./routes/bookRoutes.js";
 import cartRoutes from "./routes/cartRoutes.js";
 import { seedTestBooks } from "./scripts/seedTestBooks.js";
-import dotenv from "dotenv";
-import cors from "cors";
 
+// Load environment variables
 dotenv.config();
 
 const app = express();
+const PORT = process.env.PORT || 8080;
 
-const allowedOrigins = ["http://localhost:5173", "http://localhost:5174"];
-app.use(cors({
-  origin: function (origin, callback) {
-    // allow requests with no origin (like mobile apps, curl, etc.)
-    if (!origin) return callback(null, true);
-    if (allowedOrigins.includes(origin)) {
-      return callback(null, true);
-    } else {
-      return callback(new Error("Not allowed by CORS"));
-    }
-  },
-  credentials: true
-}));
+// CORS configuration for production
+const corsOptions = {
+  origin: process.env.FRONTEND_URL || "http://localhost:5173",
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(cookieParser());
+
+// Database connection with retry logic
+const createConnection = async () => {
+  const config = {
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
+    port: process.env.DB_PORT || 25060,
+    ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false,
+    connectTimeout: 60000,
+    acquireTimeout: 60000,
+    timeout: 60000,
+  };
+
+  try {
+    const connection = await mysql.createConnection(config);
+    console.log("✅ Connected to MySQL database");
+    return connection;
+  } catch (error) {
+    console.error("❌ Database connection failed:", error.message);
+    throw error;
+  }
+};
 
 // Comprehensive logging middleware
 app.use((req, res, next) => {
@@ -103,6 +128,15 @@ app.use("/api/fake", fakeDataRoutes);
 app.use("/api/books", bookRoutes);
 app.use("/api/cart", cartRoutes);
 
+// Health check endpoint
+app.get('/api/health', (req, res) => {
+  res.json({ 
+    status: 'OK', 
+    timestamp: new Date().toISOString(),
+    environment: process.env.NODE_ENV 
+  });
+});
+
 // Sync DB then start server
 sequelize.sync({ alter: false }).then(async () => {
   console.log('\n' + '='.repeat(60));
@@ -121,11 +155,20 @@ sequelize.sync({ alter: false }).then(async () => {
   console.log('─'.repeat(50));
   
   // Start the server
-  app.listen(3000, () => {
-    console.log('✅ Server is now listening on port 3000');
+  app.listen(PORT, '0.0.0.0', () => {
+    console.log(`✅ Server is now listening on port ${PORT}`);
   });
 }).catch(err => {
   console.error('\n❌ Failed to sync database:', err);
   console.error('🔧 Please check your database configuration');
   process.exit(1);
+});
+
+// Error handling middleware
+app.use((error, req, res, next) => {
+  console.error("Server Error:", error);
+  res.status(500).json({ 
+    message: "Internal server error",
+    error: process.env.NODE_ENV === 'development' ? error.message : 'Something went wrong'
+  });
 });
